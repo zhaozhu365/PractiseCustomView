@@ -12,6 +12,10 @@ import android.view.View;
 
 import com.example.zhaozhu.practisecustomview.R;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 /**
  * Created by zhaozhu on 16/8/17.
  */
@@ -79,11 +83,44 @@ public class CustomTitleView extends View {
 //        mPaint.setColor(mTitleTextColor);
         mBound = new Rect();
         mPaint.getTextBounds(mTitleText, 0, mTitleText.length(), mBound);
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTitleText = randomText();
+                postInvalidate();
+            }
+        });
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int width;
+        int height;
+        if (widthMode == MeasureSpec.EXACTLY) {
+            width = widthSize;
+        } else {
+            mPaint.setTextSize(mTitleTextSize);
+            mPaint.getTextBounds(mTitleText, 0, mTitleText.length(), mBound);
+            float textWidth = mBound.width();
+            int desired = (int) (getPaddingLeft() + textWidth + getPaddingRight());
+            width = desired;
+        }
+        if (heightMode == MeasureSpec.EXACTLY) {
+            height = heightSize;
+        } else {
+            mPaint.setTextSize(mTitleTextSize);
+            mPaint.getTextBounds(mTitleText, 0, mTitleText.length(), mBound);
+            float textheight = mBound.height();
+            int desired = (int) (getPaddingTop() + textheight + getPaddingBottom());
+            height = desired;
+        }
+        setMeasuredDimension(width, height);
     }
 
     @Override
@@ -95,6 +132,19 @@ public class CustomTitleView extends View {
         canvas.drawText(mTitleText, getWidth() / 2 - mBound.width() / 2, getHeight() / 2 + mBound.height() / 2, mPaint);
     }
 
-
+    private String randomText() {
+        Random random = new Random();
+        Set<Integer> set = new HashSet<>();
+        int randomInt;
+        while (set.size() < 4) {
+            randomInt = random.nextInt(10);
+            set.add(randomInt);
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i : set) {
+            sb.append("" + i);
+        }
+        return sb.toString();
+    }
 
 }

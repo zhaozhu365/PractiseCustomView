@@ -6,8 +6,10 @@
     android:layout_height="match_parent">
 
     <com.example.zhaozhu.practisecustomview.customview01.CustomTitleView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
         custom:mtitleText="3712"
         custom:mtitleTextColor="#ff0000"
         custom:mtitleTextSize="40sp" />
