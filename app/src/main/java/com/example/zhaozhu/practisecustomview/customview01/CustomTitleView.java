@@ -18,6 +18,8 @@ import java.util.Set;
 
 /**
  * Created by zhaozhu on 16/8/17.
+ * 张鸿洋博客
+ * http://blog.csdn.net/lmj623565791/article/details/24252901
  */
 public class CustomTitleView extends View {
 
@@ -88,6 +90,9 @@ public class CustomTitleView extends View {
             @Override
             public void onClick(View v) {
                 mTitleText = randomText();
+                //如果文本的长度有变化，要重新测量宽高
+                requestLayout();
+                //刷新UI
                 postInvalidate();
             }
         });
@@ -136,7 +141,9 @@ public class CustomTitleView extends View {
         Random random = new Random();
         Set<Integer> set = new HashSet<>();
         int randomInt;
-        while (set.size() < 4) {
+        //4-10之间的随机数
+        int randomSize = (int) (Math.random() * 6) + 4;
+        while (set.size() < randomSize) {
             randomInt = random.nextInt(10);
             set.add(randomInt);
         }
