@@ -5,4 +5,14 @@
         <attr name="mtitleTextColor" format="color" />
         <attr name="mtitleTextSize" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="MyVaveView">
+        <attr name="waveCount" format="integer" />
+        <attr name="waveWidth" format="integer" />
+        <attr name="android:color" />
+        <attr name="mode">
+            <enum name="circle" value="-1" />
+            <enum name="triangle" value="-2" />
+        </attr>
+    </declare-styleable>
 </resources>
