@@ -37,6 +37,8 @@ public class MyWaveView extends View {
     // 半径
     private float mRadius;
 
+    private Paint mPaint;
+
     public MyWaveView(Context context) {
         this(context, null);
     }
@@ -54,6 +56,7 @@ public class MyWaveView extends View {
         mMode = ta.getInteger(R.styleable.MyVaveView_mode, -2);
         mColor = ta.getColor(R.styleable.MyVaveView_android_color, Color.parseColor("#2C97DE"));
 
+        ta.recycle();
     }
 
     @Override
@@ -90,8 +93,8 @@ public class MyWaveView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Paint p = new Paint();
-        p.setColor(mColor);
+        mPaint = new Paint();
+        mPaint.setColor(mColor);
 
         //计算每个三角形的高？
         mWaveHeight = mRectHeight / mWaveCount;
@@ -99,7 +102,7 @@ public class MyWaveView extends View {
         //计算padding
         float padding = (mWidth - mRectWidth) / 2;
         //绘制矩形
-        canvas.drawRect(padding, padding, mRectWidth + padding, mRectHeight + padding, p);
+        canvas.drawRect(padding, padding, mRectWidth + padding, mRectHeight + padding, mPaint);
 
         // 绘制波浪
         if (mMode == MODE_TRIANGLE) {//绘制三角
@@ -113,7 +116,7 @@ public class MyWaveView extends View {
                 path.lineTo(startX, startY + mWaveHeight * (i + 1));
             }
             path.close();
-            canvas.drawPath(path, p);
+            canvas.drawPath(path, mPaint);
 
             //绘制左边的波浪
             startX = padding;
@@ -126,7 +129,7 @@ public class MyWaveView extends View {
                 path.lineTo(startX, startY + mWaveHeight * (i + 1));
             }
             path.close();
-            canvas.drawPath(path, p);
+            canvas.drawPath(path, mPaint);
         } else if (mMode == MODE_CIRCLE) {//绘制圆形,可以通过path来绘制圆，也可以直接用canvas的方法来绘制圆
 //            // 1、这里mRadius算出来的其实是直径
 //            /** 这种方式计算出的波浪数量其实是不对的，正确的应该是下面[2]的计算方式*/
@@ -136,14 +139,14 @@ public class MyWaveView extends View {
 //            float startY = padding;
 //            // 这里i循环的次数为什么和三角形不一样相同，因为[1]mRadius是直径
 //            for (int i = 0; i < mWaveCount / 2; i++) {
-//                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
+//                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, mPaint);
 //            }
 //
 //            //绘制左边的波浪
 //            startX = padding;
 //            startY = padding;
 //            for (int i = 0; i < mWaveCount / 2; i++) {
-//                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
+//                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, mPaint);
 //            }
 
             // 2、这里mRadius算出来的是正确的半径
@@ -154,14 +157,14 @@ public class MyWaveView extends View {
             float startY = padding;
             // 这里i循环的次数和三角形相同，因为[2]mRadius是半径
             for (int i = 0; i < mWaveCount; i++) {
-                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
+                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, mPaint);
             }
 
             //绘制左边的波浪
             startX = padding;
             startY = padding;
             for (int i = 0; i < mWaveCount; i++) {
-                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
+                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, mPaint);
             }
         } else {
             super.onDraw(canvas);

@@ -18,6 +18,7 @@ import android.view.View;
 public class MyPopView extends View {
 
     Paint mPaint;
+    Path mPath;
 
     int mWidth;
     int mHeight;
@@ -37,6 +38,9 @@ public class MyPopView extends View {
 
     public MyPopView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        mPaint = new Paint();
+        mPath = new Path();
     }
 
     @Override
@@ -63,18 +67,16 @@ public class MyPopView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mPaint = new Paint();
         mPaint.setColor(Color.parseColor("#2C97DE"));
         mPaint.setStyle(Paint.Style.FILL);
 
         canvas.drawRoundRect(new RectF(0, 0, mRectWidth, mRectHeight), 10, 10, mPaint);
 
-        Path path = new Path();
-        path.moveTo(mRectWidth / 2 - 30, mRectHeight);
-        path.lineTo(mRectWidth / 2, mRectHeight + 20);
-        path.lineTo(mRectWidth / 2 + 30, mRectHeight);
-        path.close();
+        mPath.moveTo(mRectWidth / 2 - 30, mRectHeight);
+        mPath.lineTo(mRectWidth / 2, mRectHeight + 20);
+        mPath.lineTo(mRectWidth / 2 + 30, mRectHeight);
+        mPath.close();
 
-        canvas.drawPath(path, mPaint);
+        canvas.drawPath(mPath, mPaint);
     }
 }
