@@ -15,4 +15,14 @@
             <enum name="triangle" value="-2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="CirclePercentView">
+        <attr name="radius" format="dimension" /><!--半径-->
+        <attr name="stripeWidth" format="dimension" /><!--色带宽度-->
+        <attr name="percent" format="integer" /><!--百分比 最大值为100-->
+        <attr name="smallColor" format="color" /><!--色带颜色-->
+        <attr name="bigColor" format="color" /><!--外圈颜色-->
+        <attr name="centerTextSize" format="dimension" /><!--中间字体颜色-->
+    </declare-styleable>
+
 </resources>

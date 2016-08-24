@@ -166,8 +166,6 @@ public class MyWaveView extends View {
             for (int i = 0; i < mWaveCount; i++) {
                 canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, mPaint);
             }
-        } else {
-            super.onDraw(canvas);
         }
 
     }

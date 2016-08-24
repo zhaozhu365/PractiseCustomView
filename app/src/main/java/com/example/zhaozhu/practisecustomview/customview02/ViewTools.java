@@ -11,6 +11,8 @@ import android.graphics.RectF;
  * wing的博客
  * 关于Android自定义view 你所需要知道的基本函数
  * http://blog.csdn.net/wingichoy/article/details/50487009
+ *
+ * 考虑如何改成博客中出现的错误：1，overdraw 2，在onDraw中 new对象
  */
 public class ViewTools {
 
