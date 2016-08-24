@@ -34,6 +34,8 @@ public class MyWaveView extends View {
     private int mHeight;
     private float mRectHeight;
     private float mWaveHeight;
+    // 半径
+    private float mRadius;
 
     public MyWaveView(Context context) {
         this(context, null);
@@ -91,7 +93,7 @@ public class MyWaveView extends View {
         Paint p = new Paint();
         p.setColor(mColor);
 
-        //计算每个三角形的高
+        //计算每个三角形的高？
         mWaveHeight = mRectHeight / mWaveCount;
 
         //计算padding
@@ -117,35 +119,52 @@ public class MyWaveView extends View {
             startX = padding;
             startY = padding;
             path.moveTo(startX, startY);
+
             for (int i = 0; i < mWaveCount; i++) {
+
                 path.lineTo(startX - mWaveWidth, startY + mWaveHeight * i + mWaveHeight / 2);
                 path.lineTo(startX, startY + mWaveHeight * (i + 1));
             }
             path.close();
             canvas.drawPath(path, p);
-        } else if (mMode == MODE_CIRCLE) {//绘制圆形
+        } else if (mMode == MODE_CIRCLE) {//绘制圆形,可以通过path来绘制圆，也可以直接用canvas的方法来绘制圆
+//            // 1、这里mRadius算出来的其实是直径
+//            /** 这种方式计算出的波浪数量其实是不对的，正确的应该是下面[2]的计算方式*/
+//            mRadius = mRectHeight / mWaveCount;
+//            //绘制右边的波浪
+//            float startX = padding + mRectWidth;
+//            float startY = padding;
+//            // 这里i循环的次数为什么和三角形不一样相同，因为[1]mRadius是直径
+//            for (int i = 0; i < mWaveCount / 2; i++) {
+//                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
+//            }
+//
+//            //绘制左边的波浪
+//            startX = padding;
+//            startY = padding;
+//            for (int i = 0; i < mWaveCount / 2; i++) {
+//                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
+//            }
+
+            // 2、这里mRadius算出来的是正确的半径
+            /** 这种方式计算出的波浪数量是对的*/
+            mRadius = mRectHeight / mWaveCount / 2;
             //绘制右边的波浪
             float startX = padding + mRectWidth;
             float startY = padding;
-            Path path = new Path();
-            path.moveTo(startX, startY);
+            // 这里i循环的次数和三角形相同，因为[2]mRadius是半径
             for (int i = 0; i < mWaveCount; i++) {
-                path.lineTo(startX + mWaveWidth, startY + mWaveHeight * i + mWaveHeight / 2);
-                path.lineTo(startX, startY + mWaveHeight * (i + 1));
+                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
             }
-            path.close();
-            canvas.drawPath(path, p);
 
             //绘制左边的波浪
             startX = padding;
             startY = padding;
-            path.moveTo(startX, startY);
             for (int i = 0; i < mWaveCount; i++) {
-                path.lineTo(startX - mWaveWidth, startY + mWaveHeight * i + mWaveHeight / 2);
-                path.lineTo(startX, startY + mWaveHeight * (i + 1));
+                canvas.drawCircle(startX, startY + i * 2 * mRadius + mRadius, mRadius, p);
             }
-            path.close();
-            canvas.drawPath(path, p);
+        } else {
+            super.onDraw(canvas);
         }
 
     }

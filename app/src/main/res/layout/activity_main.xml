@@ -28,4 +28,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <com.example.zhaozhu.practisecustomview.customview02.MyWaveView
+        android:color="#ff0000"
+        custom:mode="circle"
+        custom:waveCount="20"
+        custom:waveWidth="30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
