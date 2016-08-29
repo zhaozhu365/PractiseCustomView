@@ -69,6 +69,9 @@ public class ViewTools {
         //画一个弧，弧所在矩形为rectF  从270°开始，画90° 不经过圆心
         canvas.drawArc(rectF, 270, 90, false, p);
 
+
+        //canvas.rotate();
+
     }
 
 }

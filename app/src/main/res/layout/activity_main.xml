@@ -42,9 +42,25 @@
     <!--custom:percent="45"-->
     <!--custom:stripeWidth="15dp" />-->
 
-    <com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart
-        android:id="@+id/simpleLineChart"
-        android:layout_width="400dp"
-        android:layout_height="200dp" />
+    <!--<com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart-->
+        <!--android:id="@+id/simpleLineChart"-->
+        <!--android:layout_width="400dp"-->
+        <!--android:layout_height="200dp" />-->
+
+    <com.example.zhaozhu.practisecustomview.customview02.PanelView
+        android:id="@+id/panelView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.example.zhaozhu.practisecustomview.customview02.PanelView
+        android:id="@+id/panelView2"
+        custom:arcColor="#EF1C63"
+        android:text="当前速度"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
