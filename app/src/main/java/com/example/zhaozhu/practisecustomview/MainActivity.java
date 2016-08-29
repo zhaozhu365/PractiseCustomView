@@ -32,27 +32,28 @@ public class MainActivity extends Activity {
 //        }
 //        mSimpleLineChart.setData(pointMap);
 
-        mPanelView = (PanelView) findViewById(R.id.panelView);
-        mPanelView2 = (PanelView) findViewById(R.id.panelView2);
-        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
-        mPanelView.setText("已完成");
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mPanelView.setPercent(progress);
-                mPanelView2.setPercent(progress);
-            }
+//        mPanelView = (PanelView) findViewById(R.id.panelView);
+//        mPanelView2 = (PanelView) findViewById(R.id.panelView2);
+//        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
+//        mPanelView.setText("已完成");
+//        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                mPanelView.setPercent(progress);
+//                mPanelView2.setPercent(progress);
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
     }
 }
