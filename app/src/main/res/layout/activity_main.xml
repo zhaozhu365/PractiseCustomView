@@ -63,12 +63,16 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content" />-->
 
-    <com.example.zhaozhu.practisecustomview.customview02.TestBézierCurve
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
+    <!--<com.example.zhaozhu.practisecustomview.customview02.TestBézierCurve-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp" />-->
 
-    <com.example.zhaozhu.practisecustomview.customview02.TestBézierCurve2
+    <!--<com.example.zhaozhu.practisecustomview.customview02.TestBézierCurve2-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp" />-->
+
+    <com.example.zhaozhu.practisecustomview.customview02.QQMessageGone
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
