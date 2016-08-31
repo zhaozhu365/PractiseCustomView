@@ -77,65 +77,129 @@ public class QQMessageGone2 extends View {
 
     private float geta1() {
         if (B0 - b0 >= 0) {
-            return a0 - r * getSin();
+            if (A0 - a0 >= 0) {
+                return a0 - r * getSin();
+            } else {
+                return a0 + r * getSin();
+            }
         } else {
-            return a0 + r * getSin();
+            if (A0 - a0 >= 0) {
+                return a0 + r * getSin();
+            } else {
+                return a0 - r * getSin();
+            }
         }
     }
 
     private float getb1() {
         if (A0 - a0 >= 0) {
-            return b0 + r * getCos();
+            if (B0 - b0 >= 0) {
+                return b0 + r * getCos();
+            } else {
+                return b0 - r * getCos();
+            }
         } else {
-            return b0 - r * getCos();
+            if (B0 - b0 >= 0) {
+                return b0 - r * getCos();
+            } else {
+                return b0 + r * getCos();
+            }
         }
     }
 
     private float geta2() {
         if (B0 - b0 >= 0) {
-            return a0 + r * getSin();
+            if (A0 - a0 >= 0) {
+                return a0 + r * getSin();
+            } else {
+                return a0 - r * getSin();
+            }
         } else {
-            return a0 - r * getSin();
+            if (A0 - a0 >= 0) {
+                return a0 - r * getSin();
+            } else {
+                return a0 + r * getSin();
+            }
         }
     }
 
     private float getb2() {
         if (A0 - a0 >= 0) {
-            return b0 - r * getCos();
+            if (B0 - b0 >= 0) {
+                return b0 - r * getCos();
+            } else {
+                return b0 + r * getCos();
+            }
         } else {
-            return b0 + r * getCos();
+            if (B0 - b0 >= 0) {
+                return b0 + r * getCos();
+            } else {
+                return b0 - r * getCos();
+            }
         }
     }
 
     private float getA1() {
         if (B0 - b0 >= 0) {
-            return A0 - R * getSin();
+            if (A0 - a0 >= 0) {
+                return A0 - R * getSin();
+            } else {
+                return A0 + R * getSin();
+            }
         } else {
-            return A0 + R * getSin();
+            if (A0 - a0 >= 0) {
+                return A0 + R * getSin();
+            } else {
+                return A0 - R * getSin();
+            }
         }
     }
 
     private float getB1() {
         if (A0 - a0 >= 0) {
-            return B0 + R * getCos();
+            if (B0 - b0 >= 0) {
+                return B0 + R * getCos();
+            } else {
+                return B0 - R * getCos();
+            }
         } else {
-            return B0 - R * getCos();
+            if (B0 - b0 >= 0) {
+                return B0 - R * getCos();
+            } else {
+                return B0 + R * getCos();
+            }
         }
     }
 
     private float getA2() {
         if (B0 - b0 >= 0) {
-            return A0 + R * getSin();
+            if (A0 - a0 >= 0) {
+                return A0 + R * getSin();
+            } else {
+                return A0 - R * getSin();
+            }
         } else {
-            return A0 - R * getSin();
+            if (A0 - a0 >= 0) {
+                return A0 - R * getSin();
+            } else {
+                return A0 + R * getSin();
+            }
         }
     }
 
     private float getB2() {
         if (A0 - a0 >= 0) {
-            return B0 - R * getCos();
+            if (B0 - b0 >= 0) {
+                return B0 - R * getCos();
+            } else {
+                return B0 + R * getCos();
+            }
         } else {
-            return B0 + R * getCos();
+            if (B0 - b0 >= 0) {
+                return B0 + R * getCos();
+            } else {
+                return B0 - R * getCos();
+            }
         }
     }
 
