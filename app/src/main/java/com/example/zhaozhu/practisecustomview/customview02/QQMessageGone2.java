@@ -75,6 +75,10 @@ public class QQMessageGone2 extends View {
         return deltaX / getDistance();
     }
 
+    /**
+     * 特别注意区分4个象限：因为这里获取Sin,Cos不是通过Math来计算角度的，而是通过三角形的3个边计算的
+     * @return
+     */
     private float geta1() {
         if (B0 - b0 >= 0) {
             if (A0 - a0 >= 0) {
