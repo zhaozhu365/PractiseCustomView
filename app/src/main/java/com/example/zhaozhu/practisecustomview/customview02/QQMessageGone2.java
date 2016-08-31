@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -42,7 +43,6 @@ public class QQMessageGone2 extends View {
 
     //控制是否消失
     private boolean isCanDraw = true;
-
 
     private void setMidX() {
         midX = (A0 + a0) / 2;
@@ -232,6 +232,14 @@ public class QQMessageGone2 extends View {
     protected void onDraw(Canvas canvas) {
         mPath.reset();
 
+        //r根据distance变化
+        if (getDistance() >= 200) {
+            r = 15;
+        }else {
+            r = 50 - 35 * getDistance() / 200;
+        }
+        Log.e("zhaozhu", r + "");
+
         mPath.moveTo(geta1(), getb1());
         mPath.quadTo(midX, midY, getA1(), getB1());
         mPath.lineTo(getA2(), getB2());
@@ -271,6 +279,7 @@ public class QQMessageGone2 extends View {
 
                 lastA0 = event.getX();
                 lastB0 = event.getY();
+
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
