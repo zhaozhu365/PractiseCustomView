@@ -42,7 +42,9 @@ public class QQMessageGone2 extends View {
     private float deltaY;
 
     //控制是否消失
-    private boolean isCanDraw = true;
+    private boolean IS_DISAPPEAR_UP = false;
+    // 手指释放
+    private boolean IS_ACTION_UP = false;
 
     private void setMidX() {
         midX = (A0 + a0) / 2;
@@ -233,35 +235,51 @@ public class QQMessageGone2 extends View {
     protected void onDraw(Canvas canvas) {
         mPath.reset();
 
-        //distance<=500画两个圆
-        if (getDistance() <= 500) {
-            //r根据distance变化
-            if (getDistance() >= 200) {
-                r = 15;
+        if (!IS_ACTION_UP) {
+            //distance<=500画两个圆
+            if (getDistance() <= 500) {
+                //r根据distance变化
+                if (getDistance() >= 200) {
+                    r = 15;
+                } else {
+                    r = 50 - 35 * getDistance() / 200;
+                }
+                Log.e("zhaozhu", r + "");
+
+                mPath.moveTo(geta1(), getb1());
+                mPath.quadTo(midX, midY, getA1(), getB1());
+                mPath.lineTo(getA2(), getB2());
+                mPath.quadTo(midX, midY, geta2(), getb2());
+                mPath.lineTo(geta1(), getb1());
+                mPath.close();
+                canvas.drawPath(mPath, mPaint);
+
+                canvas.drawCircle(a0, b0, r, mPaint);
+                canvas.drawCircle(A0, B0, R, mPaint);
             } else {
-                r = 50 - 35 * getDistance() / 200;
+                //distance>500只画一个圆
+                canvas.drawCircle(A0, B0, R, mPaint);
             }
-            Log.e("zhaozhu", r + "");
+        }else {
+            //手指释放时的逻辑
+            if (getDistance() <= 500) {
+                //distance<=500,恢复原状
+                r = 50;
+                canvas.drawCircle(a0, b0, r, mPaint);
+            } else {
+                //distance>500只,消失
+                // TODO 消失动画
 
-            mPath.moveTo(geta1(), getb1());
-            mPath.quadTo(midX, midY, getA1(), getB1());
-            mPath.lineTo(getA2(), getB2());
-            mPath.quadTo(midX, midY, geta2(), getb2());
-            mPath.lineTo(geta1(), getb1());
-            mPath.close();
-            canvas.drawPath(mPath, mPaint);
+            }
 
-            canvas.drawCircle(a0, b0, r, mPaint);
-            canvas.drawCircle(A0, B0, R, mPaint);
-        } else {
-            //distance>500只画一个圆
-            canvas.drawCircle(A0, B0, R, mPaint);
         }
 
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        IS_ACTION_UP = false;
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 lastA0 = event.getX();
@@ -291,8 +309,9 @@ public class QQMessageGone2 extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 if (getDistance() > R * 3) {
-                    isCanDraw = false;
-                    //invalidate();
+                    IS_DISAPPEAR_UP = false;
+                    IS_ACTION_UP = true;
+                    invalidate();
                 }
                 break;
         }
