@@ -76,8 +76,11 @@
         <!--android:layout_height="match_parent" />-->
 
     <com.example.zhaozhu.practisecustomview.customview02.QQMessageGone2
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
+        android:background="#123456"
         />
 
 </LinearLayout>

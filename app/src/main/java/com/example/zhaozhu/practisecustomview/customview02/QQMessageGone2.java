@@ -22,6 +22,8 @@ public class QQMessageGone2 extends View {
 
     //固定的圆
     private float r = 50;
+//    private float a0 = 300;
+//    private float b0 = 200;
     private float a0 = 300;
     private float b0 = 200;
 
@@ -232,9 +234,18 @@ public class QQMessageGone2 extends View {
     }
 
     @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        //获取view的初始位置坐标
+        a0 = (right - left) / 2;
+        b0 = (bottom - top) / 2;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         mPath.reset();
-
+        canvas.clipRect(0,0,1080,1920);
         if (!IS_ACTION_UP) {
             //distance<=500画两个圆
             if (getDistance() <= 500) {
@@ -268,8 +279,7 @@ public class QQMessageGone2 extends View {
                 canvas.drawCircle(a0, b0, r, mPaint);
             } else {
                 //distance>500只,消失
-                // TODO 消失动画
-
+                // TODO 消失动画,目前不会做
             }
 
         }
