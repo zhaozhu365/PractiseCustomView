@@ -77,6 +77,7 @@ public class QQMessageGone2 extends View {
 
     /**
      * 特别注意区分4个象限：因为这里获取Sin,Cos不是通过Math来计算角度的，而是通过三角形的3个边计算的
+     *
      * @return
      */
     private float geta1() {
@@ -232,24 +233,30 @@ public class QQMessageGone2 extends View {
     protected void onDraw(Canvas canvas) {
         mPath.reset();
 
-        //r根据distance变化
-        if (getDistance() >= 200) {
-            r = 15;
-        }else {
-            r = 50 - 35 * getDistance() / 200;
+        //distance<=500画两个圆
+        if (getDistance() <= 500) {
+            //r根据distance变化
+            if (getDistance() >= 200) {
+                r = 15;
+            } else {
+                r = 50 - 35 * getDistance() / 200;
+            }
+            Log.e("zhaozhu", r + "");
+
+            mPath.moveTo(geta1(), getb1());
+            mPath.quadTo(midX, midY, getA1(), getB1());
+            mPath.lineTo(getA2(), getB2());
+            mPath.quadTo(midX, midY, geta2(), getb2());
+            mPath.lineTo(geta1(), getb1());
+            mPath.close();
+            canvas.drawPath(mPath, mPaint);
+
+            canvas.drawCircle(a0, b0, r, mPaint);
+            canvas.drawCircle(A0, B0, R, mPaint);
+        } else {
+            //distance>500只画一个圆
+            canvas.drawCircle(A0, B0, R, mPaint);
         }
-        Log.e("zhaozhu", r + "");
-
-        mPath.moveTo(geta1(), getb1());
-        mPath.quadTo(midX, midY, getA1(), getB1());
-        mPath.lineTo(getA2(), getB2());
-        mPath.quadTo(midX, midY, geta2(), getb2());
-        mPath.lineTo(geta1(), getb1());
-        mPath.close();
-        canvas.drawPath(mPath, mPaint);
-
-        canvas.drawCircle(a0, b0, r, mPaint);
-        canvas.drawCircle(A0, B0, R, mPaint);
 
     }
 
