@@ -30,8 +30,8 @@ public class QQMessageGone2 extends View {
     private float r = 50;
 //    private float a0 = 300;
 //    private float b0 = 200;
-    private float a0 = 300;
-    private float b0 = 200;
+    private float a0;
+    private float b0;
 
     //移动的圆
     private final float R = 50;
@@ -298,7 +298,10 @@ public class QQMessageGone2 extends View {
                 canvas.drawPath(mPath, mPaint);
 
                 canvas.drawCircle(a0, b0, r, mPaint);
-                canvas.drawCircle(A0, B0, R, mPaint);
+                // 当两个圆重合时,只画一个就可以
+                if (getDistance() != 0) {
+                    canvas.drawCircle(A0, B0, R, mPaint);
+                }
             } else {
                 //distance>500只画一个圆
                 canvas.drawCircle(A0, B0, R, mPaint);
