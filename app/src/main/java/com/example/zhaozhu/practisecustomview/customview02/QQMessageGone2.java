@@ -14,7 +14,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 
 /**
  * Created by zhaozhu on 16/8/29.
@@ -276,6 +279,7 @@ public class QQMessageGone2 extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         mPath.reset();
 
         if (!IS_ACTION_UP) {
@@ -312,7 +316,6 @@ public class QQMessageGone2 extends View {
                 //distance<=500,恢复原状
                 r = 50;
                 canvas.drawCircle(a0, b0, r, mPaint);
-
             } else {
                 //distance>500只,消失
                 // TODO 消失动画,用ValueAnimator来进行时间控制
@@ -342,7 +345,8 @@ public class QQMessageGone2 extends View {
                 setMidY();
                 setDeltaX();
                 setDeltaY();
-                break;
+                return true;
+//                break;
             case MotionEvent.ACTION_MOVE:
                 A0 = event.getX();
                 B0 = event.getY();
@@ -355,18 +359,25 @@ public class QQMessageGone2 extends View {
                 lastA0 = event.getX();
                 lastB0 = event.getY();
 
-                invalidate();
+                postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                if (getDistance() > R * 3) {
-                    IS_DISAPPEAR_UP = false;
-                    IS_ACTION_UP = true;
+            case MotionEvent.ACTION_CANCEL:
+                IS_DISAPPEAR_UP = false;
+                IS_ACTION_UP = true;
+                if (getDistance() > 500) {
                     //invalidate();
                     start();
+                }else {
+                    Log.e("zhaozhu", "getDistance()=" + getDistance() + "");
+                    shakeAnimation(3);
+//                    A0 = 0;
+//                    B0 = 0;
+                    postInvalidate();
                 }
                 break;
         }
-        return true;
+        return super.onTouchEvent(event);
     }
 
     // ValueAnimator的回调
@@ -450,4 +461,17 @@ public class QQMessageGone2 extends View {
         });
         animator.start();
     }
+
+    /**
+     * 抖动动画
+     * @param counts
+     */
+    public void shakeAnimation(int counts) {
+        // 避免动画抖动的频率过大，所以除以2，另外，抖动的方向跟手指滑动的方向要相反
+        Animation translateAnimation = new TranslateAnimation((a0 - A0) / 2, 0, (b0 - B0) / 2, 0);
+        translateAnimation.setInterpolator(new CycleInterpolator(counts));
+        translateAnimation.setDuration(500);
+        startAnimation(translateAnimation);
+    }
+
 }
