@@ -1,14 +1,20 @@
 package com.example.zhaozhu.practisecustomview.customview02;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 /**
  * Created by zhaozhu on 16/8/29.
@@ -47,6 +53,17 @@ public class QQMessageGone2 extends View {
     private boolean IS_DISAPPEAR_UP = false;
     // 手指释放
     private boolean IS_ACTION_UP = false;
+
+    // bitmap画笔
+    private Paint mBitmapPaint;
+    // 图片
+    private Bitmap mBitmap;
+
+    //Bitmap相关矩形
+    // 原图截取的矩形
+    private Rect mSrcRect;
+    // 目标位置
+    private RectF mDestRect;
 
     private void setMidX() {
         midX = (A0 + a0) / 2;
@@ -223,14 +240,27 @@ public class QQMessageGone2 extends View {
 
     public QQMessageGone2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        //初始化paint
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.RED);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(mPaintStrokeWidth);
 
+        //初始化path
         mPath = new Path();
+
+        //初始化Bitmap画笔
+        mBitmapPaint = new Paint();
+        mBitmapPaint.setFilterBitmap(true);
+        mBitmapPaint.setDither(true);
+
+        //初始化加载图片
+        // TODO 在ValueAnimator中加载图片
+
+        //初始化Bitmap相关矩形
+        mSrcRect = new Rect();
+        mDestRect = new RectF();
     }
 
     @Override
@@ -245,7 +275,7 @@ public class QQMessageGone2 extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         mPath.reset();
-        canvas.clipRect(0,0,1080,1920);
+
         if (!IS_ACTION_UP) {
             //distance<=500画两个圆
             if (getDistance() <= 500) {
@@ -255,7 +285,7 @@ public class QQMessageGone2 extends View {
                 } else {
                     r = 50 - 35 * getDistance() / 200;
                 }
-                Log.e("zhaozhu", r + "");
+                //Log.e("zhaozhu", r + "");
 
                 mPath.moveTo(geta1(), getb1());
                 mPath.quadTo(midX, midY, getA1(), getB1());
@@ -277,11 +307,16 @@ public class QQMessageGone2 extends View {
                 //distance<=500,恢复原状
                 r = 50;
                 canvas.drawCircle(a0, b0, r, mPaint);
+
             } else {
                 //distance>500只,消失
-                // TODO 消失动画,目前不会做
+                // TODO 消失动画,用ValueAnimator来进行时间控制
+                if (mBitmap != null) {
+                    mSrcRect.set(0, 0, mBitmap.getWidth(), mBitmap.getHeight());
+                    mDestRect.set(A0 - R, B0 - R, A0 + R, B0 + R);
+                    canvas.drawBitmap(mBitmap, mSrcRect, mDestRect, mBitmapPaint);
+                }
             }
-
         }
 
     }
@@ -321,10 +356,93 @@ public class QQMessageGone2 extends View {
                 if (getDistance() > R * 3) {
                     IS_DISAPPEAR_UP = false;
                     IS_ACTION_UP = true;
-                    invalidate();
+                    //invalidate();
+                    start();
                 }
                 break;
         }
         return true;
+    }
+
+    // ValueAnimator的回调
+    boolean flag1 = true;
+    boolean flag2 = true;
+    boolean flag3 = true;
+    boolean flag4 = true;
+    boolean flag5 = true;
+    boolean flag6 = true;
+
+    public void start(){
+        final ValueAnimator animator = ValueAnimator.ofInt(1, 6);
+
+        flag1 = true;
+        flag2 = true;
+        flag3 = true;
+        flag4 = true;
+        flag5 = true;
+        flag6 = true;
+
+        animator.setDuration(660);
+        animator.setRepeatCount(0);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                switch (value){
+                    case 1:
+                        if (flag1) {
+                            flag1 = false;
+                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idp)).getBitmap();
+                            postInvalidate();
+                            Log.e("zhaozhu", value + "");
+                        }
+                        break;
+                    case 2:
+                        if (flag2) {
+                            flag2 = false;
+                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idq)).getBitmap();
+                            postInvalidate();
+                            Log.e("zhaozhu", value + "");
+                        }
+                        break;
+                    case 3:
+                        if (flag3) {
+                            flag3 = false;
+                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idr)).getBitmap();
+                            postInvalidate();
+                            Log.e("zhaozhu", value + "");
+                        }
+                        break;
+                    case 4:
+                        if (flag4) {
+                            flag4 = false;
+                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_ids)).getBitmap();
+                            postInvalidate();
+                            Log.e("zhaozhu", value + "");
+                        }
+                        break;
+                    case 5:
+                        if (flag5) {
+                            flag5 = false;
+                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idt)).getBitmap();
+                            postInvalidate();
+                            Log.e("zhaozhu", value + "");
+                        }
+                        break;
+                    case 6:
+                        if (flag6) {
+                            flag6 = false;
+                            //TODO 如何回收？下面这种回收方式在第二次使用时会报异常
+                            //mBitmap.recycle();
+                            mBitmap = null;
+                            postInvalidate();
+                            Log.e("zhaozhu", value + "");
+                        }
+                        break;
+                }
+            }
+        });
+        animator.start();
     }
 }
