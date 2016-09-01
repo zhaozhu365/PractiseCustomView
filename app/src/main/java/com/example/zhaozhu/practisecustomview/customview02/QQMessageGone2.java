@@ -268,6 +268,8 @@ public class QQMessageGone2 extends View {
         super.onLayout(changed, left, top, right, bottom);
 
         //获取view的初始位置坐标
+        //注意,这里的left,top,right,bottom是view相对与父布局的坐标
+        //而a0,b0是相对于view自身的坐标,所以不能是(right + left) / 2,必须是(right - left) / 2
         a0 = (right - left) / 2;
         b0 = (bottom - top) / 2;
     }
