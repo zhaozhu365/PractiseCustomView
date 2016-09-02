@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 
         //消息去除控件自动添加到root上
         QQMessageGone2 messageGone2 = new QQMessageGone2(this);
-        //messageGone2.setBackgroundColor(Color.parseColor("#123456"));
+        messageGone2.setBackgroundColor(Color.parseColor("#123456"));
         messageGone2.seta0(200);
         messageGone2.setb0(200);
 
