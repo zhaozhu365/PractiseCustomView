@@ -3,13 +3,13 @@ package com.example.zhaozhu.practisecustomview.customview02;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -67,6 +67,47 @@ public class QQMessageGone2 extends View {
     private Rect mSrcRect;
     // 目标位置
     private RectF mDestRect;
+
+    public QQMessageGone2(Context context) {
+        this(context, null);
+    }
+
+    public QQMessageGone2(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public QQMessageGone2(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        //初始化paint
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.RED);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStrokeWidth(mPaintStrokeWidth);
+
+        //初始化path
+        mPath = new Path();
+
+        //初始化Bitmap画笔
+        mBitmapPaint = new Paint();
+        mBitmapPaint.setFilterBitmap(true);
+        mBitmapPaint.setDither(true);
+
+        //初始化加载图片
+        // TODO 在ValueAnimator中加载图片
+
+        //初始化Bitmap相关矩形
+        mSrcRect = new Rect();
+        mDestRect = new RectF();
+    }
+
+    public void seta0(float a0){
+        this.a0 = a0;
+    }
+
+    public void setb0(float b0){
+        this.b0 = b0;
+    }
 
     private void setMidX() {
         midX = (A0 + a0) / 2;
@@ -232,40 +273,6 @@ public class QQMessageGone2 extends View {
         }
     }
 
-
-    public QQMessageGone2(Context context) {
-        this(context, null);
-    }
-
-    public QQMessageGone2(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public QQMessageGone2(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        //初始化paint
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.RED);
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setStrokeWidth(mPaintStrokeWidth);
-
-        //初始化path
-        mPath = new Path();
-
-        //初始化Bitmap画笔
-        mBitmapPaint = new Paint();
-        mBitmapPaint.setFilterBitmap(true);
-        mBitmapPaint.setDither(true);
-
-        //初始化加载图片
-        // TODO 在ValueAnimator中加载图片
-
-        //初始化Bitmap相关矩形
-        mSrcRect = new Rect();
-        mDestRect = new RectF();
-    }
-
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -273,8 +280,8 @@ public class QQMessageGone2 extends View {
         //获取view的初始位置坐标
         //注意,这里的left,top,right,bottom是view相对与父布局的坐标
         //而a0,b0是相对于view自身的坐标,所以不能是(right + left) / 2,必须是(right - left) / 2
-        a0 = (right - left) / 2;
-        b0 = (bottom - top) / 2;
+        //a0 = (right - left) / 2;
+        //b0 = (bottom - top) / 2;
     }
 
     @Override
@@ -370,9 +377,7 @@ public class QQMessageGone2 extends View {
                     start();
                 }else {
                     Log.e("zhaozhu", "getDistance()=" + getDistance() + "");
-                    shakeAnimation(3);
-//                    A0 = 0;
-//                    B0 = 0;
+                    shakeAnimation(1);
                     postInvalidate();
                 }
                 break;
@@ -409,7 +414,7 @@ public class QQMessageGone2 extends View {
                     case 1:
                         if (flag1) {
                             flag1 = false;
-                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idp)).getBitmap();
+                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idp);
                             postInvalidate();
                             Log.e("zhaozhu", value + "");
                         }
@@ -417,7 +422,7 @@ public class QQMessageGone2 extends View {
                     case 2:
                         if (flag2) {
                             flag2 = false;
-                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idq)).getBitmap();
+                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idq);
                             postInvalidate();
                             Log.e("zhaozhu", value + "");
                         }
@@ -425,7 +430,7 @@ public class QQMessageGone2 extends View {
                     case 3:
                         if (flag3) {
                             flag3 = false;
-                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idr)).getBitmap();
+                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idr);
                             postInvalidate();
                             Log.e("zhaozhu", value + "");
                         }
@@ -433,7 +438,7 @@ public class QQMessageGone2 extends View {
                     case 4:
                         if (flag4) {
                             flag4 = false;
-                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_ids)).getBitmap();
+                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_ids);
                             postInvalidate();
                             Log.e("zhaozhu", value + "");
                         }
@@ -441,7 +446,7 @@ public class QQMessageGone2 extends View {
                     case 5:
                         if (flag5) {
                             flag5 = false;
-                            mBitmap = ((BitmapDrawable)getResources().getDrawable(com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idt)).getBitmap();
+                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idt);
                             postInvalidate();
                             Log.e("zhaozhu", value + "");
                         }
@@ -467,10 +472,15 @@ public class QQMessageGone2 extends View {
      * @param counts
      */
     public void shakeAnimation(int counts) {
-        // 避免动画抖动的频率过大，所以除以2，另外，抖动的方向跟手指滑动的方向要相反
-        Animation translateAnimation = new TranslateAnimation((a0 - A0) / 2, 0, (b0 - B0) / 2, 0);
+        // 避免动画抖动的频率过大，所以除以2
+        // 另外，抖动的方向跟手指滑动的方向要相反
+        //优化抖动幅度
+        float fromX = (a0 - A0) / 2;
+        float fromY = (b0 - B0) / 2;
+
+        Animation translateAnimation = new TranslateAnimation(fromX, 0, fromY, 0);
         translateAnimation.setInterpolator(new CycleInterpolator(counts));
-        translateAnimation.setDuration(500);
+        translateAnimation.setDuration(100);
         startAnimation(translateAnimation);
     }
 

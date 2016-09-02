@@ -1,10 +1,13 @@
 package com.example.zhaozhu.practisecustomview;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.SeekBar;
 
 import com.example.zhaozhu.practisecustomview.customview02.PanelView;
+import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone2;
 import com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart;
 
 public class MainActivity extends Activity {
@@ -53,6 +56,16 @@ public class MainActivity extends Activity {
 //
 //            }
 //        });
+
+        //消息去除控件自动添加到root上
+        QQMessageGone2 messageGone2 = new QQMessageGone2(this);
+        //messageGone2.setBackgroundColor(Color.parseColor("#123456"));
+        messageGone2.seta0(200);
+        messageGone2.setb0(200);
+
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        addContentView(messageGone2, layoutParams);
 
 
     }
