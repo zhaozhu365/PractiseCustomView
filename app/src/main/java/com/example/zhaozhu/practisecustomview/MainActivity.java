@@ -68,5 +68,6 @@ public class MainActivity extends Activity {
         addContentView(messageGone2, layoutParams);
 
 
+
     }
 }

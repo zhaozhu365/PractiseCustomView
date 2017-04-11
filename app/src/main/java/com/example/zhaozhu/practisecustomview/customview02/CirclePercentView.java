@@ -136,8 +136,10 @@ public class CirclePercentView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(mStripeWidth);
         //先画已经通过的部分
-        //注意，当画笔粗细较为明显时，矩形的起终点需要相应的加上和减去mStripeWidth / 2，即画笔的中心点（画笔的宽度=中心点向两边扩展 mStripeWidth / 2的长度）
-        canvas.drawArc(0 + mStripeWidth / 2, 0 + mStripeWidth / 2, mWidth - mStripeWidth / 2, mHeight - mStripeWidth / 2, 270, mCurPercent, false, mPaint);
+        //注意，当画笔粗细较为明显时，矩形的起终点需要相应的加上和减去mStrokeWidth / 2，
+        // 即画笔的中心点（画笔的宽度=中心点向两边扩展 mStrokeWidth / 2的长度）
+        canvas.drawArc(0 + mStripeWidth / 2, 0 + mStripeWidth / 2, mWidth - mStripeWidth / 2,
+                mHeight - mStripeWidth / 2, 270, mCurPercent, false, mPaint);
         //再画上下的部分,颜色(在这里与背景一致)和终止角度要变化
         mPaint.setColor(mSmallColor);
         canvas.drawArc(0 + mStripeWidth / 2, 0 + mStripeWidth / 2, mWidth - mStripeWidth / 2, mHeight - mStripeWidth / 2, (270 + mCurPercent) % 360, 360 - mCurPercent, false, mPaint);
