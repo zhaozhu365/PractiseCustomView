@@ -2,12 +2,16 @@ package com.example.zhaozhu.practisecustomview;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.example.zhaozhu.practisecustomview.customview02.PanelView;
 import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone2;
+import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone3;
 import com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart;
 
 public class MainActivity extends Activity {
@@ -20,7 +24,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
 
 //        mSimpleLineChart = (SimpleLineChart) findViewById(R.id.simpleLineChart);
 //        String[] xItem = {"1", "2", "3", "4", "5", "6", "7"};
@@ -58,15 +62,60 @@ public class MainActivity extends Activity {
 //        });
 
         //消息去除控件自动添加到root上
-        QQMessageGone2 messageGone2 = new QQMessageGone2(this);
-        messageGone2.setBackgroundColor(Color.parseColor("#123456"));
-        messageGone2.seta0(200);
-        messageGone2.setb0(200);
+//        QQMessageGone2 messageGone2 = new QQMessageGone2(this);
+//        messageGone2.setBackgroundColor(Color.parseColor("#123456"));
+//        messageGone2.seta0(200);
+//        messageGone2.setb0(200);
+//        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        addContentView(messageGone2, layoutParams);
 
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        /**在ListView中如何操作*/
+        //TODO 在列表中,小红点消失后,需要更改对应item数据,更改完后,如何刷新界面呢？
+        //TODO (方法1)更改完数据源后,用recyclerview的notifyItemDataChanged,就可以更新单个item,不需要将整个ListView刷新
+        //TODO (方法2)那要不使用RecyclerView呢？那就在更改完数据源后，调用ListView.onItemClickListener，可以获取到item中的
+        //TODO 所有的view，然后直接调用小红点view.setVisibility(GONE)即可。
+        /***/
 
-        addContentView(messageGone2, layoutParams);
+        //TODO QQMessageGone3 的示例
+        setContentView(R.layout.activity_main2);
+        final ImageView bubbles = (ImageView) findViewById(R.id.bubbles_anim);
+        final AnimationDrawable drawable = (AnimationDrawable) bubbles.getDrawable();
 
+        QQMessageGone3 gone3 = (QQMessageGone3) findViewById(R.id.QQMessageGone3_test);
+        gone3.seta0(500);
+        gone3.setb0(500);
+        gone3.setRedPointDismissListener(new QQMessageGone3.RedPointDismissListener() {
+            @Override
+            public void onDismiss(float x, float y) {
+                //设置bubbles的位置
+                bubbles.setTranslationX(x - bubbles.getWidth() / 2);
+                bubbles.setTranslationY(y - bubbles.getHeight() / 2);
+                bubbles.setVisibility(View.VISIBLE);
+                if (drawable != null) {
+                    if (drawable.isRunning()) {
+                        drawable.stop();
+                        drawable.start();
+                    } else {
+                        drawable.start();
+                    }
+                }
+            }
+
+            @Override
+            public void onFinishAnim(float x, float y) {
+                bubbles.setVisibility(View.GONE);
+                if (drawable != null) {
+                    if (drawable.isRunning()) {
+                        drawable.stop();
+                    }
+                }
+            }
+
+            @Override
+            public void onShakeAnim(float x, float y) {
+
+            }
+        });
 
 
     }

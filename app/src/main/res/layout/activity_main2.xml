@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <!--<com.example.zhaozhu.practisecustomview.customview01.CustomTitleView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="10dp"-->
+    <!--custom:mtitleText="3712"-->
+    <!--custom:mtitleTextColor="#ff0000"-->
+    <!--custom:mtitleTextSize="40sp" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.MyPopView-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="100dp" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.MyWaveView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:color="#ff0000"-->
+    <!--custom:mode="triangle"-->
+    <!--custom:waveCount="20"-->
+    <!--custom:waveWidth="30" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.MyWaveView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:color="#ff0000"-->
+    <!--custom:mode="circle"-->
+    <!--custom:waveCount="20"-->
+    <!--custom:waveWidth="30" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.CirclePercentView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--custom:centerTextSize="16dp"-->
+    <!--custom:percent="45"-->
+    <!--custom:stripeWidth="15dp" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart-->
+    <!--android:id="@+id/simpleLineChart"-->
+    <!--android:layout_width="400dp"-->
+    <!--android:layout_height="200dp" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.PanelView-->
+    <!--android:id="@+id/panelView"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--<com.example.zhaozhu.practisecustomview.customview02.PanelView-->
+    <!--android:id="@+id/panelView2"-->
+    <!--custom:arcColor="#EF1C63"-->
+    <!--android:text="当前速度"-->
+    <!--android:textSize="18sp"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--<SeekBar-->
+    <!--android:id="@+id/seekBar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.TestBézierCurve-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.TestBézierCurve2-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.QQMessageGone-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+    <!--<com.example.zhaozhu.practisecustomview.customview02.QQMessageGone2-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#123456"-->
+        <!--/>-->
+
+    <com.example.zhaozhu.practisecustomview.customview02.QQMessageGone3
+        android:id="@+id/QQMessageGone3_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/bubbles_anim"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@drawable/bubble_anim"
+        android:visibility="gone"/>
+
+</RelativeLayout>

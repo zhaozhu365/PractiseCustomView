@@ -1,5 +1,6 @@
 package com.example.zhaozhu.practisecustomview.customview02;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,10 +20,13 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
+import com.example.zhaozhu.practisecustomview.R;
+
 /**
  * Created by zhaozhu on 16/8/29.
+ *  动画应该组合使用,一个动画完成一件事
  */
-public class QQMessageGone2 extends View {
+public class QQMessageGone3 extends View {
 
     private Paint mPaint;
     private Path mPath;
@@ -31,7 +35,7 @@ public class QQMessageGone2 extends View {
 
     //固定的圆
     private float r = 50;
-//    private float a0 = 300;
+    //    private float a0 = 300;
 //    private float b0 = 200;
     private float a0;
     private float b0;
@@ -68,15 +72,15 @@ public class QQMessageGone2 extends View {
     // 目标位置
     private RectF mDestRect;
 
-    public QQMessageGone2(Context context) {
+    public QQMessageGone3(Context context) {
         this(context, null);
     }
 
-    public QQMessageGone2(Context context, AttributeSet attrs) {
+    public QQMessageGone3(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public QQMessageGone2(Context context, AttributeSet attrs, int defStyleAttr) {
+    public QQMessageGone3(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         //初始化paint
         mPaint = new Paint();
@@ -101,11 +105,11 @@ public class QQMessageGone2 extends View {
         mDestRect = new RectF();
     }
 
-    public void seta0(float a0){
+    public void seta0(float a0) {
         this.a0 = a0;
     }
 
-    public void setb0(float b0){
+    public void setb0(float b0) {
         this.b0 = b0;
     }
 
@@ -317,7 +321,7 @@ public class QQMessageGone2 extends View {
                 //distance>500只画一个圆
                 canvas.drawCircle(A0, B0, R, mPaint);
             }
-        }else {
+        } else {
             //手指释放时的逻辑
             if (getDistance() <= 500) {
                 //distance<=500,恢复原状
@@ -336,8 +340,14 @@ public class QQMessageGone2 extends View {
 
     }
 
+    private boolean canTouch = false;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!canTouch && IS_ACTION_UP) {
+            return super.onTouchEvent(event);
+        }
+
         IS_ACTION_UP = false;
 
         switch (event.getAction()) {
@@ -375,7 +385,7 @@ public class QQMessageGone2 extends View {
                 if (getDistance() > 500) {
                     //invalidate();
                     startFrame();
-                }else {
+                } else {
                     Log.e("zhaozhu", "getDistance()=" + getDistance() + "");
                     shakeAnimation(1);
                     //TODO 这里不需要postInvalidate,因为view并没有重绘,仅仅是执行一个View动画而已
@@ -386,87 +396,38 @@ public class QQMessageGone2 extends View {
         return super.onTouchEvent(event);
     }
 
-    //TODO 通过 ValueAnimator实现的帧动画,虽然实现了图片的实时回收，但是实用性太差
-    //TODO 所有有了QQMessageGone3.java
-    boolean flag1 = true;
-    boolean flag2 = true;
-    boolean flag3 = true;
-    boolean flag4 = true;
-    boolean flag5 = true;
-    boolean flag6 = true;
-
-    public void startFrame(){
-        final ValueAnimator animator = ValueAnimator.ofInt(1, 6);
-
-        flag1 = true;
-        flag2 = true;
-        flag3 = true;
-        flag4 = true;
-        flag5 = true;
-        flag6 = true;
-
+    //TODO 通过 AnimationDrawable实现的帧动画
+    public void startFrame() {
+        final ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
         animator.setDuration(660);
         animator.setRepeatCount(0);
         animator.setInterpolator(new LinearInterpolator());
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (int) animation.getAnimatedValue();
-                switch (value){
-                    case 1:
-                        if (flag1) {
-                            flag1 = false;
-                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idp);
-                            postInvalidate();
-                            Log.e("zhaozhu", value + "");
-                        }
-                        break;
-                    case 2:
-                        if (flag2) {
-                            flag2 = false;
-                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idq);
-                            postInvalidate();
-                            Log.e("zhaozhu", value + "");
-                        }
-                        break;
-                    case 3:
-                        if (flag3) {
-                            flag3 = false;
-                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idr);
-                            postInvalidate();
-                            Log.e("zhaozhu", value + "");
-                        }
-                        break;
-                    case 4:
-                        if (flag4) {
-                            flag4 = false;
-                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_ids);
-                            postInvalidate();
-                            Log.e("zhaozhu", value + "");
-                        }
-                        break;
-                    case 5:
-                        if (flag5) {
-                            flag5 = false;
-                            mBitmap = BitmapFactory.decodeResource(getResources(), com.example.zhaozhu.practisecustomview.R.drawable.tips_bubble_idt);
-                            postInvalidate();
-                            Log.e("zhaozhu", value + "");
-                        }
-                        break;
-                    case 6:
-                        if (flag6) {
-                            flag6 = false;
-                            //TODO 如何回收？在mBitmap.recycle()前要判断是否已经被回收
-                            //mBitmap.recycle();
-                            if (mBitmap != null && !mBitmap.isRecycled()) {
-                                mBitmap.recycle();
-                            }
-                            mBitmap = null;
-                            postInvalidate();
-                            Log.e("zhaozhu", value + "");
-                        }
-                        break;
+            public void onAnimationStart(Animator animation) {
+                canTouch = false;
+                //消失动画
+                if (mRedPointDismissListener != null) {
+                    mRedPointDismissListener.onDismiss(A0, B0);
                 }
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                canTouch = true;
+                if (mRedPointDismissListener != null) {
+                    mRedPointDismissListener.onFinishAnim(A0, B0);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
             }
         });
         animator.start();
@@ -474,6 +435,7 @@ public class QQMessageGone2 extends View {
 
     /**
      * 抖动动画
+     *
      * @param counts
      */
     public void shakeAnimation(int counts) {
@@ -487,6 +449,24 @@ public class QQMessageGone2 extends View {
         translateAnimation.setInterpolator(new CycleInterpolator(counts));
         translateAnimation.setDuration(100);
         this.startAnimation(translateAnimation);
+    }
+
+    private RedPointDismissListener mRedPointDismissListener;
+    public void setRedPointDismissListener(RedPointDismissListener dismissListener) {
+        this.mRedPointDismissListener = dismissListener;
+    }
+
+    public interface RedPointDismissListener {
+        /**
+         * 参数为消失时圆心的坐标
+         */
+        void onDismiss(float x, float y);
+        void onFinishAnim(float x, float y);
+
+        /**
+         * 抖动动画也可以放到外面控制
+         */
+        void onShakeAnim(float x, float y);
     }
 
 }
