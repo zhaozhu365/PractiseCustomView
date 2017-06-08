@@ -6,13 +6,20 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import com.example.zhaozhu.practisecustomview.customview02.AnimImageView;
+import com.example.zhaozhu.practisecustomview.customview02.CirclePathView;
 import com.example.zhaozhu.practisecustomview.customview02.PanelView;
 import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone2;
 import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone3;
+import com.example.zhaozhu.practisecustomview.customview02.RotationImageView;
 import com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart;
+import com.example.zhaozhu.practisecustomview.pathanimationdemo.FllowerAnimation;
+import com.nineoldandroids.animation.PropertyValuesHolder;
 
 public class MainActivity extends Activity {
 
@@ -77,46 +84,83 @@ public class MainActivity extends Activity {
         /***/
 
         //TODO QQMessageGone3 的示例
-        setContentView(R.layout.activity_main2);
-        final ImageView bubbles = (ImageView) findViewById(R.id.bubbles_anim);
-        final AnimationDrawable drawable = (AnimationDrawable) bubbles.getDrawable();
+//        setContentView(R.layout.activity_main2);
+//        final ImageView bubbles = (ImageView) findViewById(R.id.bubbles_anim);
+//        final AnimationDrawable drawable = (AnimationDrawable) bubbles.getDrawable();
+//
+//        QQMessageGone3 gone3 = (QQMessageGone3) findViewById(R.id.QQMessageGone3_test);
+//        gone3.seta0(500);
+//        gone3.setb0(500);
+//        gone3.setRedPointDismissListener(new QQMessageGone3.RedPointDismissListener() {
+//            @Override
+//            public void onDismiss(float x, float y) {
+//                //设置bubbles的位置
+//                bubbles.setTranslationX(x - bubbles.getWidth() / 2);
+//                bubbles.setTranslationY(y - bubbles.getHeight() / 2);
+//                bubbles.setVisibility(View.VISIBLE);
+//                if (drawable != null) {
+//                    if (drawable.isRunning()) {
+//                        drawable.stop();
+//                        drawable.start();
+//                    } else {
+//                        drawable.start();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFinishAnim(float x, float y) {
+//                bubbles.setVisibility(View.GONE);
+//                if (drawable != null) {
+//                    if (drawable.isRunning()) {
+//                        drawable.stop();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onShakeAnim(float x, float y) {
+//
+//            }
+//        });
 
-        QQMessageGone3 gone3 = (QQMessageGone3) findViewById(R.id.QQMessageGone3_test);
-        gone3.seta0(500);
-        gone3.setb0(500);
-        gone3.setRedPointDismissListener(new QQMessageGone3.RedPointDismissListener() {
-            @Override
-            public void onDismiss(float x, float y) {
-                //设置bubbles的位置
-                bubbles.setTranslationX(x - bubbles.getWidth() / 2);
-                bubbles.setTranslationY(y - bubbles.getHeight() / 2);
-                bubbles.setVisibility(View.VISIBLE);
-                if (drawable != null) {
-                    if (drawable.isRunning()) {
-                        drawable.stop();
-                        drawable.start();
-                    } else {
-                        drawable.start();
-                    }
-                }
-            }
+        //TODO pathMeasure示例
+//        setContentView(R.layout.activity_main_pathmeasure);
+//        Button run;
+//        RelativeLayout rlt_animation_layout;
+//        run = (Button) findViewById(R.id.but_run);
+//        rlt_animation_layout = (RelativeLayout) findViewById(R.id.rlt_animation_layout);
+//        rlt_animation_layout.setVisibility(View.VISIBLE);
+//
+//        final FllowerAnimation fllowerAnimation;
+//        fllowerAnimation = new FllowerAnimation(this);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+//        fllowerAnimation.setLayoutParams(params);
+//        rlt_animation_layout.addView(fllowerAnimation);
+//
+//        run.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fllowerAnimation.startAnimation();
+//            }
+//        });
 
-            @Override
-            public void onFinishAnim(float x, float y) {
-                bubbles.setVisibility(View.GONE);
-                if (drawable != null) {
-                    if (drawable.isRunning()) {
-                        drawable.stop();
-                    }
-                }
-            }
+        //TODO 公示计算获取路径
+        setContentView(R.layout.activity_main3);
+        RotationImageView rotationImageView = (RotationImageView) findViewById(R.id.RotationImageView);
+        AnimImageView animImageView = (AnimImageView) findViewById(R.id.AnimImageView);
+        CirclePathView startView = (CirclePathView) findViewById(R.id.CirclePathView);
 
-            @Override
-            public void onShakeAnim(float x, float y) {
+        rotationImageView.startAnim();
+        startView.startAnim();
 
-            }
-        });
-
+        PropertyValuesHolder rotationHolder = PropertyValuesHolder.ofFloat("rotation", 0, 360);
+        PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0, 1, 0);
+        animImageView.init(rotationHolder, alphaHolder);
+        animImageView.startAnim();
 
     }
+
+
+
 }
