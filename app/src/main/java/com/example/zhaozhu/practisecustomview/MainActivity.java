@@ -146,19 +146,21 @@ public class MainActivity extends Activity {
 //        });
 
         //TODO 公示计算获取路径
-        setContentView(R.layout.activity_main3);
-        RotationImageView rotationImageView = (RotationImageView) findViewById(R.id.RotationImageView);
-        AnimImageView animImageView = (AnimImageView) findViewById(R.id.AnimImageView);
-        CirclePathView startView = (CirclePathView) findViewById(R.id.CirclePathView);
+//        setContentView(R.layout.activity_main3);
+//        RotationImageView rotationImageView = (RotationImageView) findViewById(R.id.RotationImageView);
+//        AnimImageView animImageView = (AnimImageView) findViewById(R.id.AnimImageView);
+//        CirclePathView startView = (CirclePathView) findViewById(R.id.CirclePathView);
+//
+//        rotationImageView.startAnim();
+//        startView.startAnim();
+//
+//        PropertyValuesHolder rotationHolder = PropertyValuesHolder.ofFloat("rotation", 0, 360);
+//        PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0, 1, 0);
+//        animImageView.init(rotationHolder, alphaHolder);
+//        animImageView.startAnim();
 
-        rotationImageView.startAnim();
-        startView.startAnim();
-
-        PropertyValuesHolder rotationHolder = PropertyValuesHolder.ofFloat("rotation", 0, 360);
-        PropertyValuesHolder alphaHolder = PropertyValuesHolder.ofFloat("alpha", 0, 1, 0);
-        animImageView.init(rotationHolder, alphaHolder);
-        animImageView.startAnim();
-
+        //TODO ViewDragHelper
+        setContentView(R.layout.activity_main4);
     }
 
 
