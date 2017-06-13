@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone2;
 import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone3;
 import com.example.zhaozhu.practisecustomview.customview02.RotationImageView;
 import com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart;
+import com.example.zhaozhu.practisecustomview.customviewgroup.HSlidingPaneLayout;
 import com.example.zhaozhu.practisecustomview.pathanimationdemo.FllowerAnimation;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 
@@ -159,10 +161,34 @@ public class MainActivity extends Activity {
 //        animImageView.init(rotationHolder, alphaHolder);
 //        animImageView.startAnim();
 
-        //TODO ViewDragHelper
-        setContentView(R.layout.activity_main4);
+        //TODO HSlidingPaneLayout
+        setContentView(R.layout.activity_main5);
+        final HSlidingPaneLayout slidingPaneLayout = (HSlidingPaneLayout) findViewById(R.id.slide);
+        final View leftMenu = findViewById(R.id.left_menu);
+        final View content = findViewById(R.id.right_content);
+
+        slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
+        slidingPaneLayout.setPanelSlideListener(new HSlidingPaneLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                Log.e("zz", "content " + (content == panel) + " leftMenu " + (leftMenu == panel) + " slideOffset = " + slideOffset);
+            }
+            @Override
+            public void onPanelOpened(View panel) {
+                Log.e("zz", "onPanelOpened");
+            }
+            @Override
+            public void onPanelClosed(View panel) {
+                Log.e("zz", "onPanelClosed");
+            }
+        });
+
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingPaneLayout.openPane();
+            }
+        });
     }
-
-
 
 }
