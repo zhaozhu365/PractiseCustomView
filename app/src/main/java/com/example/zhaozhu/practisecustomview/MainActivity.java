@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 //            }
 //        });
 
-        //消息去除控件自动添加到root上
+        //TODO 消息去除控件自动添加到root上
 //        QQMessageGone2 messageGone2 = new QQMessageGone2(this);
 //        messageGone2.setBackgroundColor(Color.parseColor("#123456"));
 //        messageGone2.seta0(200);
@@ -86,45 +86,45 @@ public class MainActivity extends Activity {
         /***/
 
         //TODO QQMessageGone3 的示例
-//        setContentView(R.layout.activity_main2);
-//        final ImageView bubbles = (ImageView) findViewById(R.id.bubbles_anim);
-//        final AnimationDrawable drawable = (AnimationDrawable) bubbles.getDrawable();
-//
-//        QQMessageGone3 gone3 = (QQMessageGone3) findViewById(R.id.QQMessageGone3_test);
-//        gone3.seta0(500);
-//        gone3.setb0(500);
-//        gone3.setRedPointDismissListener(new QQMessageGone3.RedPointDismissListener() {
-//            @Override
-//            public void onDismiss(float x, float y) {
-//                //设置bubbles的位置
-//                bubbles.setTranslationX(x - bubbles.getWidth() / 2);
-//                bubbles.setTranslationY(y - bubbles.getHeight() / 2);
-//                bubbles.setVisibility(View.VISIBLE);
-//                if (drawable != null) {
-//                    if (drawable.isRunning()) {
-//                        drawable.stop();
-//                        drawable.start();
-//                    } else {
-//                        drawable.start();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFinishAnim(float x, float y) {
-//                bubbles.setVisibility(View.GONE);
-//                if (drawable != null) {
-//                    if (drawable.isRunning()) {
-//                        drawable.stop();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onShakeAnim(float x, float y) {
-//
-//            }
-//        });
+        setContentView(R.layout.activity_main2);
+        final ImageView bubbles = (ImageView) findViewById(R.id.bubbles_anim);
+        final AnimationDrawable drawable = (AnimationDrawable) bubbles.getDrawable();
+
+        QQMessageGone3 gone3 = (QQMessageGone3) findViewById(R.id.QQMessageGone3_test);
+        gone3.seta0(500);
+        gone3.setb0(500);
+        gone3.setRedPointDismissListener(new QQMessageGone3.RedPointDismissListener() {
+            @Override
+            public void onDismiss(float x, float y) {
+                //设置bubbles的位置
+                bubbles.setTranslationX(x - bubbles.getWidth() / 2);
+                bubbles.setTranslationY(y - bubbles.getHeight() / 2);
+                bubbles.setVisibility(View.VISIBLE);
+                if (drawable != null) {
+                    if (drawable.isRunning()) {
+                        drawable.stop();
+                        drawable.start();
+                    } else {
+                        drawable.start();
+                    }
+                }
+            }
+
+            @Override
+            public void onFinishAnim(float x, float y) {
+                bubbles.setVisibility(View.GONE);
+                if (drawable != null) {
+                    if (drawable.isRunning()) {
+                        drawable.stop();
+                    }
+                }
+            }
+
+            @Override
+            public void onShakeAnim(float x, float y) {
+
+            }
+        });
 
         //TODO pathMeasure示例
 //        setContentView(R.layout.activity_main_pathmeasure);
@@ -162,33 +162,33 @@ public class MainActivity extends Activity {
 //        animImageView.startAnim();
 
         //TODO HSlidingPaneLayout
-        setContentView(R.layout.activity_main5);
-        final HSlidingPaneLayout slidingPaneLayout = (HSlidingPaneLayout) findViewById(R.id.slide);
-        final View leftMenu = findViewById(R.id.left_menu);
-        final View content = findViewById(R.id.right_content);
-
-        slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
-        slidingPaneLayout.setPanelSlideListener(new HSlidingPaneLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-                Log.e("zz", "content " + (content == panel) + " leftMenu " + (leftMenu == panel) + " slideOffset = " + slideOffset);
-            }
-            @Override
-            public void onPanelOpened(View panel) {
-                Log.e("zz", "onPanelOpened");
-            }
-            @Override
-            public void onPanelClosed(View panel) {
-                Log.e("zz", "onPanelClosed");
-            }
-        });
-
-        content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingPaneLayout.openPane();
-            }
-        });
+//        setContentView(R.layout.activity_main5);
+//        final HSlidingPaneLayout slidingPaneLayout = (HSlidingPaneLayout) findViewById(R.id.slide);
+//        final View leftMenu = findViewById(R.id.left_menu);
+//        final View content = findViewById(R.id.right_content);
+//
+//        slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
+//        slidingPaneLayout.setPanelSlideListener(new HSlidingPaneLayout.PanelSlideListener() {
+//            @Override
+//            public void onPanelSlide(View panel, float slideOffset) {
+//                Log.e("zz", "content " + (content == panel) + " leftMenu " + (leftMenu == panel) + " slideOffset = " + slideOffset);
+//            }
+//            @Override
+//            public void onPanelOpened(View panel) {
+//                Log.e("zz", "onPanelOpened");
+//            }
+//            @Override
+//            public void onPanelClosed(View panel) {
+//                Log.e("zz", "onPanelClosed");
+//            }
+//        });
+//
+//        content.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                slidingPaneLayout.openPane();
+//            }
+//        });
     }
 
 }
