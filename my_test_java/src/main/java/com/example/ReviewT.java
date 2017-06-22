@@ -66,6 +66,7 @@ public class ReviewT {
 //        List<Object> list3 = new ArrayList<String>();
     }
 
+    //TODO 通配符----无限:(集合 的[参数为泛型的方法] 和 [返回值为泛型的方法])都不能使用了----------------------------------------------------------------
     public void fun4() {
         List<Integer> list1 = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
@@ -84,7 +85,7 @@ public class ReviewT {
 
     public void print2(List<?> list) {
         /**
-         * 思考：虽然都可以调用了，但是却带来了一些参数使用上面的限制
+         * 思考：无限通配符,虽然都可以调用了，但是却带来了一些参数使用上面的限制
          */
         //list.add(new Integer(100));//报错，因为并不知道传递进来的到底是上面，如果是String,那编程通过就笑话了，add()作废
 
@@ -100,22 +101,30 @@ public class ReviewT {
          */
     }
 
+    //TODO 通配符----上限:子类统配:[返回值为泛型的方法]可以使用----------------------------------------------------------------
     public void fun5() {
         List<Integer> intList = new ArrayList<>();
         List<Long> longList = new ArrayList<>();
+        List<Number> numberList = new ArrayList<>();
+        List<Object> objects = new ArrayList<>();
 
-        print3(intList);
-        print3(longList);
+        print3(intList); //正确,通配符上限：子类统配
+        print3(longList); //正确,通配符上限：子类统配
+        print3(numberList); //正确,通配符上限：子类统配
+        //print3(objects); //报错，因为List<T>中,T现在为Object类型,不是Number类的子类,所以不能传参
 
         //TODO 注意这里，和上转型对象的区别
-        //print31(intList); //报错，注意这里和对象上转型不同
-        //print31(longList);
+        //print31(intList); //报错，参数类型不对,注意这里和对象上转型不同
+        //print31(longList); //报错，参数类型不对,注意这里和对象上转型不同
+        print31(numberList); //正确,因为传递的就是List<Number>类型
+        //print31(objects); //报错，参数类型不对,
     }
 
     /**
+     * 通配符上限：子类统配
      * 子类统配，必须是Number及Number的子类才可以传参
      * 这样的缺点是：降低了参数的灵活性，但是关闭一扇大门就会打开一扇大门
-     * 因为所有的参数类型都是Number的子类，所有返回值可以使用Number来接受，get()方法获得解放，即返回值为泛型的方法可以使用了
+     * 因为（可以传参的类,即?所代表的类型）都是Number的子类，所有返回值可以使用Number来接受，get()方法获得解放，即返回值为泛型的方法可以使用了
      */
     public void print3(List<? extends Number> list) {
         Number number = list.get(0);//正确
@@ -126,24 +135,29 @@ public class ReviewT {
         //TODO 注意这里，和上转型对象的区别
     }
 
-
+    //TODO 通配符----下限:父类统配:[参数为泛型的方法]可以使用----------------------------------------------------------------
     public void fun6() {
         List<Integer> intList = new ArrayList<>();
         List<Long> longList = new ArrayList<>();
+        List<Number> numberList = new ArrayList<>();
+        List<Object> objectList = new ArrayList<>();
 
-        print4(intList);
+        print4(intList);//正确,通配符下限：父类统配
         //print4(longList); //报错，Long并不是Integer的父类
+        print4(numberList); //正确,通配符下限：父类统配
+        print4(objectList); //正确,通配符下限：父类统配,因为Object是所有类的父类
     }
 
     /**
-     * 父类统配，只允许Integer传递参数
+     * 通配符下限：父类统配
+     * 父类统配，必须是Integer及Integer的父类才可以传参
      * 这样的缺点是：降低了参数的灵活性，但是关闭一扇大门就会打开一扇大门
-     * 好处是因为所有类都是Integer的父类，参数为泛型的所有方法都可以使用了
+     * 好处是因为（可以传参的类,即?所代表的类型）都是Integer的父类，[参数为泛型的方法]都可以使用了
      * 但是相反的，返回值为泛型类型的方法就不能使用，因为子类不能接收父类的值
      */
     public void print4(List<? super Integer> list) {
         list.add(new Integer(100)); //正确
-        //Integer integer = list.get(0);//报错,返回值为泛型的方法就不能使用了,因为不知道返回的类型是什么
+        //Integer integer = list.get(0);//报错,返回值为泛型的方法就不能使用了,因为不知道返回的类型是什么,子类不能接收父类的值
     }
 
 
