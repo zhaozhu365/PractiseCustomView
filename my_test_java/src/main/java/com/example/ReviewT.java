@@ -114,8 +114,8 @@ public class ReviewT {
     Helper helper;
     SubHelper subHelper;
     HelperToo helperToo;
-    Fanxing fanxing;
-    Fanxing<?> fanxing1;
+    Fanxing fanxing; //TODO 不用通配符声明的fanxing 和 用通配符声明的fanxing1 有什么区别？
+    Fanxing<?> fanxing1; //TODO
     FanxingLimit fanxingLimit;
     FanxingLimit<?> fanxingLimit1;
     FanxingLimit<?> fanxingLimit2 = new FanxingLimit<Helper>();
