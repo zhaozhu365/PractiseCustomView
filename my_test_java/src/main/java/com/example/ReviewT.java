@@ -19,6 +19,10 @@ public class ReviewT {
         //泛型类
     }
 
+    public static class A1 {
+        //普通类A1
+    }
+
     public static class B extends A {
         //非泛型子类
     }
@@ -31,6 +35,9 @@ public class ReviewT {
         //泛型子类
     }
 
+    public static class F<T> {
+
+    }
 
     public static class E<T> {
         public T fun1() {//非泛型方法
@@ -49,7 +56,92 @@ public class ReviewT {
 
         }
 
+        public <e extends A> void fun4(e e) { //TODO 泛型方法,返回值限定
+
+        }
+
     }
+
+    //TODO -----注意泛型通配符与上转型区分-----------------------------------------------------------
+
+    /**
+     * 注意，这是上转型,print5()
+     */
+    public void fun7() {
+        Integer integer = new Integer(100);
+        Long aLong = new Long(1000);
+
+        print5(integer);
+        print5(aLong);
+    }
+
+    public void print5(Number number) {
+    }
+
+    /**
+     * 注意，通配符 ? 只能作为泛型参数使用，print6()的使用方式不对
+     */
+//    public void print6(? extends Number) { //报错,通配符-只能作为[替换-泛型的类型参数]
+//    }
+
+
+    //TODO ---通配符的适用范围-只能作为[替换-泛型的类型参数]或者说[类型占位符]的用法---------------------------------------
+
+    //TODO 如何理解 [替换-泛型的类型参数]呢？
+    //TODO 比如,定义了一个泛型类FanXing<T>，一个普通类PuTong，
+    //TODO 那么在声明FanXing<T>类型的实例(包括FanXing<T>类型实例作为形参)时，就可以使用通配符作为FanXing<T>类型的实例的参数类型的替换；
+    //TODO 通配符 ? 相当于是一种[类型占位符]
+    //TODO 那么在声明PuTong类型的实例就不可以使用通配符
+
+    //TODO 举例如下：
+    //定义类型
+    static class Helper {
+    }
+    static class SubHelper extends Helper {
+    }
+    static class HelperToo {
+    }
+
+    static class Fanxing<T> {
+    }
+    static class FanxingLimit<T extends Helper> {
+    }
+    //static class FanxingLimit2<T super Helper> {} //没有这种用法
+    static class PuTong {
+    }
+
+    //用定义的类型来声明引用
+    Helper helper;
+    SubHelper subHelper;
+    HelperToo helperToo;
+    Fanxing fanxing;
+    Fanxing<?> fanxing1;
+    FanxingLimit fanxingLimit;
+    FanxingLimit<?> fanxingLimit1;
+    FanxingLimit<?> fanxingLimit2 = new FanxingLimit<Helper>();
+    FanxingLimit<?> fanxingLimit3 = new FanxingLimit<SubHelper>();
+    FanxingLimit<Helper> fanxingLimit4 = new FanxingLimit<Helper>();
+    FanxingLimit<SubHelper> fanxingLimit5 = new FanxingLimit<SubHelper>();
+    //FanxingLimit<Helper> fanxingLimit6 = new FanxingLimit<SubHelper>(); //报错,类型不同,不能实例化
+    //FanxingLimit<SubHelper> fanxingLimit6 = new FanxingLimit<Helper>(); //报错,类型不同,不能实例化
+    //FanxingLimit<?> fanxingLimit6 = new FanxingLimit<HelperToo>();//报错,类型不同,不能实例化
+    PuTong puTong;
+    //PuTong<?> puTong1; //报错,非泛型类不能使用 通配符
+
+    void method01(Fanxing fanxing) {
+        fanxing = new Fanxing<Object>();
+    }
+    void method02(Fanxing<?> fanxing) {
+        fanxing = new Fanxing<Object>();
+    }
+    void method03(FanxingLimit fanxingLimit) {
+    }
+    void method04(FanxingLimit<?> fanxingLimit) {
+    }
+    void method05(PuTong puTong) {
+    }
+    //void method06(PuTong<?> puTong) {} //报错,非泛型类不能使用 通配符
+
 
     //TODO 通配符------无限,上限,下限-----
 
@@ -66,7 +158,7 @@ public class ReviewT {
 //        List<Object> list3 = new ArrayList<String>();
     }
 
-    //TODO 通配符----无限:(集合 的[参数为泛型的方法] 和 [返回值为泛型的方法])都不能使用了----------------------------------------------------------------
+    //TODO 通配符----无限:(集合 的[参数为泛型的方法] 和 [返回值为泛型的方法])都不能使用了-------------------
     public void fun4() {
         List<Integer> list1 = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
@@ -101,9 +193,9 @@ public class ReviewT {
          */
     }
 
-    //TODO ----------------------------------------------------------------------------------------------------------------
+    //TODO -----------------------------------------------------------------------------------------
 
-    //TODO 通配符----上限:子类统配:[返回值为泛型的方法]可以使用----------------------------------------------------------------
+    //TODO 通配符----上限:子类统配:[返回值为泛型的方法]可以使用------------------------------------------
     public void fun5() {
         List<Integer> intList = new ArrayList<>();
         List<Long> longList = new ArrayList<>();
@@ -126,20 +218,22 @@ public class ReviewT {
      * 通配符上限：子类统配
      * 子类统配，必须是Number及Number的子类才可以传参
      * 这样的缺点是：降低了参数的灵活性，但是关闭一扇大门就会打开一扇大门
-     * 因为（可以传参的类,即?所代表的类型）都是Number的子类，所有返回值可以使用Number来接受，get()方法获得解放，即返回值为泛型的方法可以使用了
+     * 因为（可以传参的类,即?所代表的类型）都是Number的子类，所有返回值可以使用Number来接受，get()方法获得解放，
+     * 即返回值为泛型的方法可以使用了
      */
     public void print3(List<? extends Number> list) {
         Number number = list.get(0);//正确
-        //list.add(new Integer(100));/但add()方法还是被废，因为不知道具体传入的哪一个子类，如果传入的是Long，加入Integer就笑话了
+        //list.add(new Integer(100));/但add()方法还是被废，因为不知道具体传入的哪一个子类，如果传入的是Long，
+        // 加入Integer就笑话了
     }
 
     public void print31(List<Number> list) {
         //TODO 注意这里，和上转型对象的区别
     }
 
-    //TODO ----------------------------------------------------------------------------------------------------------------
+    //TODO -----------------------------------------------------------------------------------------
 
-    //TODO 通配符----下限:父类统配:[参数为泛型的方法]可以使用----------------------------------------------------------------
+    //TODO 通配符----下限:父类统配:[参数为泛型的方法]可以使用-------------------------------------------
     public void fun6() {
         List<Integer> intList = new ArrayList<>();
         List<Long> longList = new ArrayList<>();
@@ -163,27 +257,5 @@ public class ReviewT {
         list.add(new Integer(100)); //正确
         //Integer integer = list.get(0);//报错,返回值为泛型的方法就不能使用了,因为不知道返回的类型是什么,子类不能接收父类的值
     }
-
-    //TODO ----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * 注意，这是上转型
-     */
-    public void fun7() {
-        Integer integer = new Integer(100);
-        Long aLong = new Long(1000);
-
-        print5(integer);
-        print5(aLong);
-    }
-
-    public void print5(Number number) {
-    }
-
-    /**
-     * 注意，通配符 ? 只能作为泛型参数使用
-     */
-//    public void print6(? extends Number) {
-//    }
 
 }
