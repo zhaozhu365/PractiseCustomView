@@ -2,32 +2,20 @@ package com.example.zhaozhu.practisecustomview;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
-import com.example.zhaozhu.practisecustomview.customview02.AnimImageView;
-import com.example.zhaozhu.practisecustomview.customview02.CirclePathView;
 import com.example.zhaozhu.practisecustomview.customview02.PanelView;
-import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone2;
-import com.example.zhaozhu.practisecustomview.customview02.QQMessageGone3;
-import com.example.zhaozhu.practisecustomview.customview02.RotationImageView;
 import com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart;
-import com.example.zhaozhu.practisecustomview.customviewgroup.HSlidingPaneLayout;
-import com.example.zhaozhu.practisecustomview.pathanimationdemo.FllowerAnimation;
-import com.nineoldandroids.animation.PropertyValuesHolder;
+import com.example.zhaozhu.practisecustomview.customviewgroup.HSlidingPaneLayout2;
 
 public class MainActivity extends Activity {
 
     private SimpleLineChart mSimpleLineChart;
 
-    private PanelView mPanelView,mPanelView2;
+    private PanelView mPanelView, mPanelView2;
     private SeekBar mSeekBar;
 
     @Override
@@ -72,9 +60,9 @@ public class MainActivity extends Activity {
 
         //TODO 消息去除控件自动添加到root上
 //        QQMessageGone2 messageGone2 = new QQMessageGone2(this);
-//        messageGone2.setBackgroundColor(Color.parseColor("#123456"));
-//        messageGone2.seta0(200);
-//        messageGone2.setb0(200);
+////        messageGone2.setBackgroundColor(Color.parseColor("#123456"));
+//        messageGone2.seta0(500);
+//        messageGone2.setb0(500);
 //        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        addContentView(messageGone2, layoutParams);
 
@@ -86,45 +74,45 @@ public class MainActivity extends Activity {
         /***/
 
         //TODO QQMessageGone3 的示例
-        setContentView(R.layout.activity_main2);
-        final ImageView bubbles = (ImageView) findViewById(R.id.bubbles_anim);
-        final AnimationDrawable drawable = (AnimationDrawable) bubbles.getDrawable();
-
-        QQMessageGone3 gone3 = (QQMessageGone3) findViewById(R.id.QQMessageGone3_test);
-        gone3.seta0(500);
-        gone3.setb0(500);
-        gone3.setRedPointDismissListener(new QQMessageGone3.RedPointDismissListener() {
-            @Override
-            public void onDismiss(float x, float y) {
-                //设置bubbles的位置
-                bubbles.setTranslationX(x - bubbles.getWidth() / 2);
-                bubbles.setTranslationY(y - bubbles.getHeight() / 2);
-                bubbles.setVisibility(View.VISIBLE);
-                if (drawable != null) {
-                    if (drawable.isRunning()) {
-                        drawable.stop();
-                        drawable.start();
-                    } else {
-                        drawable.start();
-                    }
-                }
-            }
-
-            @Override
-            public void onFinishAnim(float x, float y) {
-                bubbles.setVisibility(View.GONE);
-                if (drawable != null) {
-                    if (drawable.isRunning()) {
-                        drawable.stop();
-                    }
-                }
-            }
-
-            @Override
-            public void onShakeAnim(float x, float y) {
-
-            }
-        });
+//        setContentView(R.layout.activity_main2);
+//        final ImageView bubbles = (ImageView) findViewById(R.id.bubbles_anim);
+//        final AnimationDrawable drawable = (AnimationDrawable) bubbles.getDrawable();
+//
+//        QQMessageGone3 gone3 = (QQMessageGone3) findViewById(R.id.QQMessageGone3_test);
+//        gone3.seta0(500);
+//        gone3.setb0(500);
+//        gone3.setRedPointDismissListener(new QQMessageGone3.RedPointDismissListener() {
+//            @Override
+//            public void onDismiss(float x, float y) {
+//                //设置bubbles的位置
+//                bubbles.setTranslationX(x - bubbles.getWidth() / 2);
+//                bubbles.setTranslationY(y - bubbles.getHeight() / 2);
+//                bubbles.setVisibility(View.VISIBLE);
+//                if (drawable != null) {
+//                    if (drawable.isRunning()) {
+//                        drawable.stop();
+//                        drawable.start();
+//                    } else {
+//                        drawable.start();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFinishAnim(float x, float y) {
+//                bubbles.setVisibility(View.GONE);
+//                if (drawable != null) {
+//                    if (drawable.isRunning()) {
+//                        drawable.stop();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onShakeAnim(float x, float y) {
+//
+//            }
+//        });
 
         //TODO pathMeasure示例
 //        setContentView(R.layout.activity_main_pathmeasure);
@@ -161,7 +149,7 @@ public class MainActivity extends Activity {
 //        animImageView.init(rotationHolder, alphaHolder);
 //        animImageView.startAnim();
 
-        //TODO HSlidingPaneLayout
+        //TODO HSlidingPaneLayout mOverhangSize = -32px;
 //        setContentView(R.layout.activity_main5);
 //        final HSlidingPaneLayout slidingPaneLayout = (HSlidingPaneLayout) findViewById(R.id.slide);
 //        final View leftMenu = findViewById(R.id.left_menu);
@@ -189,6 +177,80 @@ public class MainActivity extends Activity {
 //                slidingPaneLayout.openPane();
 //            }
 //        });
-    }
 
+//        //TODO 原生SlidingPaneLayout mOverhangSize = 32dp ;所以左侧菜单会空出来一块
+//        setContentView(R.layout.activity_main6);
+//        final SlidingPaneLayout slidingPaneLayout = (SlidingPaneLayout) findViewById(R.id.slide);
+//        final View leftMenu = findViewById(R.id.left_menu);
+//        final View content = findViewById(R.id.right_content);
+//
+//        slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
+//        slidingPaneLayout.setPanelSlideListener(new SlidingPaneLayout.PanelSlideListener() {
+//            @Override
+//            public void onPanelSlide(View panel, float slideOffset) {
+//                Log.e("zz", "content " + (content == panel) + " leftMenu " + (leftMenu == panel) + " slideOffset = " + slideOffset);
+//            }
+//            @Override
+//            public void onPanelOpened(View panel) {
+//                Log.e("zz", "onPanelOpened");
+//            }
+//            @Override
+//            public void onPanelClosed(View panel) {
+//                Log.e("zz", "onPanelClosed");
+//            }
+//        });
+//
+//        content.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                slidingPaneLayout.openPane();
+//            }
+//        });
+//        leftMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                slidingPaneLayout.closePane();
+//            }
+//        });
+
+        //TODO HSlidingPaneLayout2 mOverhangSize = 0px;
+        setContentView(R.layout.activity_main7);
+        final HSlidingPaneLayout2 slidingPaneLayout = (HSlidingPaneLayout2) findViewById(R.id.slide);
+        final View leftMenu = findViewById(R.id.left_menu);
+        final View content = findViewById(R.id.right_content);
+
+        slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
+        slidingPaneLayout.setPanelSlideListener(new HSlidingPaneLayout2.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                Log.e("zz", "content " + (content == panel) + " leftMenu " + (leftMenu == panel) + " slideOffset = " + slideOffset);
+            }
+
+            @Override
+            public void onPanelOpened(View panel) {
+                Log.e("zz", "onPanelOpened");
+            }
+
+            @Override
+            public void onPanelClosed(View panel) {
+                Log.e("zz", "onPanelClosed");
+            }
+        });
+
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingPaneLayout.openPane();
+            }
+        });
+        leftMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingPaneLayout.closePane();
+            }
+        });
+
+
+
+    }
 }

@@ -105,7 +105,7 @@ import java.util.ArrayList;
  * </p>
  */
 @SuppressLint("ClickableViewAccessibility")
-public class HSlidingPaneLayout extends ViewGroup {
+public class HSlidingPaneLayout2 extends ViewGroup {
     private static final String TAG = "SlidingPaneLayout";
 
     /**
@@ -116,7 +116,7 @@ public class HSlidingPaneLayout extends ViewGroup {
     /**
      * The fade color used for the sliding panel. 0 = no fading.
      */
-    private int mSliderFadeColor = HSlidingPaneLayout.DEFAULT_FADE_COLOR;
+    private int mSliderFadeColor = HSlidingPaneLayout2.DEFAULT_FADE_COLOR;
 
     /**
      * Minimum velocity that will be detected as a fling
@@ -263,20 +263,21 @@ public class HSlidingPaneLayout extends ViewGroup {
         }
     }
 
-    public HSlidingPaneLayout(final Context context) {
+    public HSlidingPaneLayout2(final Context context) {
         this(context, null);
     }
 
-    public HSlidingPaneLayout(final Context context, final AttributeSet attrs) {
+    public HSlidingPaneLayout2(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public HSlidingPaneLayout(final Context context, final AttributeSet attrs, final int defStyle) {
+    public HSlidingPaneLayout2(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
 
         final float density = context.getResources().getDisplayMetrics().density;
         //TODO 为啥是-32，为啥不用0，
-        this.mOverhangSize = -32;
+        //this.mOverhangSize = -32;
+        this.mOverhangSize = 0;
 
         this.setWillNotDraw(false);
 
@@ -285,7 +286,7 @@ public class HSlidingPaneLayout extends ViewGroup {
 
         this.mDragHelper = ViewDragHelper.create(this, 0.5f, new DragHelperCallback());
         this.mDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
-        this.mDragHelper.setMinVelocity(HSlidingPaneLayout.MIN_FLING_VELOCITY * density);
+        this.mDragHelper.setMinVelocity(HSlidingPaneLayout2.MIN_FLING_VELOCITY * density);
     }
 
     /**
@@ -376,7 +377,7 @@ public class HSlidingPaneLayout extends ViewGroup {
         final int right;
         final int top;
         final int bottom;
-        if ((panel != null) && HSlidingPaneLayout.viewIsOpaque(panel)) {
+        if ((panel != null) && HSlidingPaneLayout2.viewIsOpaque(panel)) {
             left = panel.getLeft();
             right = panel.getRight();
             top = panel.getTop();
@@ -514,7 +515,7 @@ public class HSlidingPaneLayout extends ViewGroup {
         final int childCount = this.getChildCount();
 
         if (childCount > 2) {
-            Log.e(HSlidingPaneLayout.TAG, "onMeasure: More than two child views are not supported.");
+            Log.e(HSlidingPaneLayout2.TAG, "onMeasure: More than two child views are not supported.");
         }
 
         // We'll find the current one below.
@@ -544,10 +545,10 @@ public class HSlidingPaneLayout extends ViewGroup {
 
             int childWidthSpec;
             final int horizontalMargin = lp.leftMargin + lp.rightMargin;
-            if (lp.width == android.view.ViewGroup.LayoutParams.WRAP_CONTENT) {
+            if (lp.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
                 childWidthSpec = MeasureSpec.makeMeasureSpec(widthSize - horizontalMargin,
                         MeasureSpec.AT_MOST);
-            } else if (lp.width == android.view.ViewGroup.LayoutParams.MATCH_PARENT) {
+            } else if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
                 childWidthSpec = MeasureSpec.makeMeasureSpec(widthSize - horizontalMargin,
                         MeasureSpec.EXACTLY);
             } else {
@@ -555,9 +556,9 @@ public class HSlidingPaneLayout extends ViewGroup {
             }
 
             int childHeightSpec;
-            if (lp.height == android.view.ViewGroup.LayoutParams.WRAP_CONTENT) {
+            if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight, MeasureSpec.AT_MOST);
-            } else if (lp.height == android.view.ViewGroup.LayoutParams.MATCH_PARENT) {
+            } else if (lp.height == ViewGroup.LayoutParams.MATCH_PARENT) {
                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight, MeasureSpec.EXACTLY);
             } else {
                 childHeightSpec = MeasureSpec.makeMeasureSpec(lp.height, MeasureSpec.EXACTLY);
@@ -609,10 +610,10 @@ public class HSlidingPaneLayout extends ViewGroup {
                             // Do initial height measurement if we skipped
                             // measuring this view
                             // the first time around.
-                            if (lp.height == android.view.ViewGroup.LayoutParams.WRAP_CONTENT) {
+                            if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
                                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                         MeasureSpec.AT_MOST);
-                            } else if (lp.height == android.view.ViewGroup.LayoutParams.MATCH_PARENT) {
+                            } else if (lp.height == ViewGroup.LayoutParams.MATCH_PARENT) {
                                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                         MeasureSpec.EXACTLY);
                             } else {
@@ -632,10 +633,10 @@ public class HSlidingPaneLayout extends ViewGroup {
                     if (lp.width == 0) {
                         // This was skipped the first time; figure out a real
                         // height spec.
-                        if (lp.height == android.view.ViewGroup.LayoutParams.WRAP_CONTENT) {
+                        if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
                             childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                     MeasureSpec.AT_MOST);
-                        } else if (lp.height == android.view.ViewGroup.LayoutParams.MATCH_PARENT) {
+                        } else if (lp.height == ViewGroup.LayoutParams.MATCH_PARENT) {
                             childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                     MeasureSpec.EXACTLY);
                         } else {
@@ -1054,7 +1055,7 @@ public class HSlidingPaneLayout extends ViewGroup {
                     canvas.drawBitmap(cache, child.getLeft(), child.getTop(), lp.dimPaint);
                     result = false;
                 } else {
-                    Log.e(HSlidingPaneLayout.TAG, "drawChild: child view " + child + " returned null drawing cache");
+                    Log.e(HSlidingPaneLayout2.TAG, "drawChild: child view " + child + " returned null drawing cache");
                     result = super.drawChild(canvas, child, drawingTime);
                 }
             } else {
@@ -1071,7 +1072,7 @@ public class HSlidingPaneLayout extends ViewGroup {
     }
 
     private void invalidateChildRegion(final View v) {
-        HSlidingPaneLayout.IMPL.invalidateChildRegion(this, v);
+        HSlidingPaneLayout2.IMPL.invalidateChildRegion(this, v);
     }
 
     /**
@@ -1271,7 +1272,7 @@ public class HSlidingPaneLayout extends ViewGroup {
 
         @Override
         public boolean tryCaptureView(final View child, final int pointerId) {
-            if (HSlidingPaneLayout.this.mIsUnableToDrag) {
+            if (HSlidingPaneLayout2.this.mIsUnableToDrag) {
                 return false;
             }
 
@@ -1281,14 +1282,14 @@ public class HSlidingPaneLayout extends ViewGroup {
 
         @Override
         public void onViewDragStateChanged(final int state) {
-            if (HSlidingPaneLayout.this.mDragHelper.getViewDragState() == ViewDragHelper.STATE_IDLE) {
-                if (HSlidingPaneLayout.this.mSlideOffset == 0) {
-                    HSlidingPaneLayout.this.updateObscuredViewsVisibility(HSlidingPaneLayout.this.mSlideableView);
-                    HSlidingPaneLayout.this.dispatchOnPanelClosed(HSlidingPaneLayout.this.mSlideableView);
-                    HSlidingPaneLayout.this.mPreservedOpenState = false;
+            if (HSlidingPaneLayout2.this.mDragHelper.getViewDragState() == ViewDragHelper.STATE_IDLE) {
+                if (HSlidingPaneLayout2.this.mSlideOffset == 0) {
+                    HSlidingPaneLayout2.this.updateObscuredViewsVisibility(HSlidingPaneLayout2.this.mSlideableView);
+                    HSlidingPaneLayout2.this.dispatchOnPanelClosed(HSlidingPaneLayout2.this.mSlideableView);
+                    HSlidingPaneLayout2.this.mPreservedOpenState = false;
                 } else {
-                    HSlidingPaneLayout.this.dispatchOnPanelOpened(HSlidingPaneLayout.this.mSlideableView);
-                    HSlidingPaneLayout.this.mPreservedOpenState = true;
+                    HSlidingPaneLayout2.this.dispatchOnPanelOpened(HSlidingPaneLayout2.this.mSlideableView);
+                    HSlidingPaneLayout2.this.mPreservedOpenState = true;
                 }
             }
         }
@@ -1297,36 +1298,36 @@ public class HSlidingPaneLayout extends ViewGroup {
         public void onViewCaptured(final View capturedChild, final int activePointerId) {
             // Make all child views visible in preparation for sliding things
             // around
-            HSlidingPaneLayout.this.setAllChildrenVisible();
+            HSlidingPaneLayout2.this.setAllChildrenVisible();
         }
 
         @Override
         public void onViewPositionChanged(final View changedView, final int left, final int top, final int dx, final int dy) {
-            HSlidingPaneLayout.this.onPanelDragged(left);
-            HSlidingPaneLayout.this.invalidate();
+            HSlidingPaneLayout2.this.onPanelDragged(left);
+            HSlidingPaneLayout2.this.invalidate();
         }
 
         @Override
         public void onViewReleased(final View releasedChild, final float xvel, final float yvel) {
             final LayoutParams lp = (LayoutParams) releasedChild.getLayoutParams();
-            int left = HSlidingPaneLayout.this.getPaddingLeft() + lp.leftMargin;
-            if ((xvel > 0) || ((xvel == 0) && (HSlidingPaneLayout.this.mSlideOffset > 0.5f))) {
-                left += HSlidingPaneLayout.this.mSlideRange;
+            int left = HSlidingPaneLayout2.this.getPaddingLeft() + lp.leftMargin;
+            if ((xvel > 0) || ((xvel == 0) && (HSlidingPaneLayout2.this.mSlideOffset > 0.5f))) {
+                left += HSlidingPaneLayout2.this.mSlideRange;
             }
-            HSlidingPaneLayout.this.mDragHelper.settleCapturedViewAt(left, releasedChild.getTop());
-            HSlidingPaneLayout.this.invalidate();
+            HSlidingPaneLayout2.this.mDragHelper.settleCapturedViewAt(left, releasedChild.getTop());
+            HSlidingPaneLayout2.this.invalidate();
         }
 
         @Override
         public int getViewHorizontalDragRange(final View child) {
-            return HSlidingPaneLayout.this.mSlideRange;
+            return HSlidingPaneLayout2.this.mSlideRange;
         }
 
         @Override
         public int clampViewPositionHorizontal(final View child, final int left, final int dx) {
-            final LayoutParams lp = (LayoutParams) HSlidingPaneLayout.this.mSlideableView.getLayoutParams();
-            final int leftBound = HSlidingPaneLayout.this.getPaddingLeft() + lp.leftMargin;
-            final int rightBound = leftBound + HSlidingPaneLayout.this.mSlideRange;
+            final LayoutParams lp = (LayoutParams) HSlidingPaneLayout2.this.mSlideableView.getLayoutParams();
+            final int leftBound = HSlidingPaneLayout2.this.getPaddingLeft() + lp.leftMargin;
+            final int rightBound = leftBound + HSlidingPaneLayout2.this.mSlideRange;
 
             final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
 
@@ -1335,11 +1336,11 @@ public class HSlidingPaneLayout extends ViewGroup {
 
         @Override
         public void onEdgeDragStarted(final int edgeFlags, final int pointerId) {
-            HSlidingPaneLayout.this.mDragHelper.captureChildView(HSlidingPaneLayout.this.mSlideableView, pointerId);
+            HSlidingPaneLayout2.this.mDragHelper.captureChildView(HSlidingPaneLayout2.this.mSlideableView, pointerId);
         }
     }
 
-    public static class LayoutParams extends ViewGroup.MarginLayoutParams {
+    public static class LayoutParams extends MarginLayoutParams {
         private static final int[] ATTRS = new int[]{
                 android.R.attr.layout_weight
         };
@@ -1371,7 +1372,7 @@ public class HSlidingPaneLayout extends ViewGroup {
             super(width, height);
         }
 
-        public LayoutParams(final android.view.ViewGroup.LayoutParams source) {
+        public LayoutParams(final ViewGroup.LayoutParams source) {
             super(source);
         }
 
@@ -1412,8 +1413,8 @@ public class HSlidingPaneLayout extends ViewGroup {
             out.writeInt(this.isOpen ? 1 : 0);
         }
 
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
+        public static final Creator<SavedState> CREATOR =
+                new Creator<SavedState>() {
                     @Override
                     public SavedState createFromParcel(final Parcel in) {
                         return new SavedState(in);
@@ -1427,12 +1428,12 @@ public class HSlidingPaneLayout extends ViewGroup {
     }
 
     interface SlidingPanelLayoutImpl {
-        void invalidateChildRegion(HSlidingPaneLayout parent, View child);
+        void invalidateChildRegion(HSlidingPaneLayout2 parent, View child);
     }
 
     static class SlidingPanelLayoutImplBase implements SlidingPanelLayoutImpl {
         @Override
-        public void invalidateChildRegion(final HSlidingPaneLayout parent, final View child) {
+        public void invalidateChildRegion(final HSlidingPaneLayout2 parent, final View child) {
             ViewCompat.postInvalidateOnAnimation(parent, child.getLeft(), child.getTop(),
                     child.getRight(), child.getBottom());
         }
@@ -1454,24 +1455,24 @@ public class HSlidingPaneLayout extends ViewGroup {
             try {
                 this.mGetDisplayList = View.class.getDeclaredMethod("getDisplayList", (Class[]) null);
             } catch (final NoSuchMethodException e) {
-                Log.e(HSlidingPaneLayout.TAG, "Couldn't fetch getDisplayList method; dimming won't work right.", e);
+                Log.e(HSlidingPaneLayout2.TAG, "Couldn't fetch getDisplayList method; dimming won't work right.", e);
             }
             try {
                 this.mRecreateDisplayList = View.class.getDeclaredField("mRecreateDisplayList");
                 this.mRecreateDisplayList.setAccessible(true);
             } catch (final NoSuchFieldException e) {
-                Log.e(HSlidingPaneLayout.TAG, "Couldn't fetch mRecreateDisplayList field; dimming will be slow.", e);
+                Log.e(HSlidingPaneLayout2.TAG, "Couldn't fetch mRecreateDisplayList field; dimming will be slow.", e);
             }
         }
 
         @Override
-        public void invalidateChildRegion(final HSlidingPaneLayout parent, final View child) {
+        public void invalidateChildRegion(final HSlidingPaneLayout2 parent, final View child) {
             if ((this.mGetDisplayList != null) && (this.mRecreateDisplayList != null)) {
                 try {
                     this.mRecreateDisplayList.setBoolean(child, true);
                     this.mGetDisplayList.invoke(child, (Object[]) null);
                 } catch (final Exception e) {
-                    Log.e(HSlidingPaneLayout.TAG, "Error refreshing display list state", e);
+                    Log.e(HSlidingPaneLayout2.TAG, "Error refreshing display list state", e);
                 }
             } else {
                 // Slow path. REALLY slow path. Let's hope we don't get here.
@@ -1484,7 +1485,7 @@ public class HSlidingPaneLayout extends ViewGroup {
 
     static class SlidingPanelLayoutImplJBMR1 extends SlidingPanelLayoutImplBase {
         @Override
-        public void invalidateChildRegion(final HSlidingPaneLayout parent, final View child) {
+        public void invalidateChildRegion(final HSlidingPaneLayout2 parent, final View child) {
             ViewCompat.setLayerPaint(child, ((LayoutParams) child.getLayoutParams()).dimPaint);
         }
     }
@@ -1499,7 +1500,7 @@ public class HSlidingPaneLayout extends ViewGroup {
             this.copyNodeInfoNoChildren(info, superNode);
             superNode.recycle();
 
-            info.setClassName(HSlidingPaneLayout.class.getName());
+            info.setClassName(HSlidingPaneLayout2.class.getName());
             info.setSource(host);
 
             final ViewParent parent = ViewCompat.getParentForAccessibility(host);
@@ -1509,9 +1510,9 @@ public class HSlidingPaneLayout extends ViewGroup {
 
             // This is a best-approximation of addChildrenForAccessibility()
             // that accounts for filtering.
-            final int childCount = HSlidingPaneLayout.this.getChildCount();
+            final int childCount = HSlidingPaneLayout2.this.getChildCount();
             for (int i = 0; i < childCount; i++) {
-                final View child = HSlidingPaneLayout.this.getChildAt(i);
+                final View child = HSlidingPaneLayout2.this.getChildAt(i);
                 if (!this.filter(child) && (child.getVisibility() == View.VISIBLE)) {
                     // Force importance to "yes" since we can't read the value.
                     ViewCompat.setImportantForAccessibility(
@@ -1525,7 +1526,7 @@ public class HSlidingPaneLayout extends ViewGroup {
         public void onInitializeAccessibilityEvent(final View host, final AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
 
-            event.setClassName(HSlidingPaneLayout.class.getName());
+            event.setClassName(HSlidingPaneLayout2.class.getName());
         }
 
         @Override
@@ -1538,7 +1539,7 @@ public class HSlidingPaneLayout extends ViewGroup {
         }
 
         public boolean filter(final View child) {
-            return HSlidingPaneLayout.this.isDimmed(child);
+            return HSlidingPaneLayout2.this.isDimmed(child);
         }
 
         /**
@@ -1585,11 +1586,11 @@ public class HSlidingPaneLayout extends ViewGroup {
 
         @Override
         public void run() {
-            if (this.mChildView.getParent() == HSlidingPaneLayout.this) {
+            if (this.mChildView.getParent() == HSlidingPaneLayout2.this) {
                 ViewCompat.setLayerType(this.mChildView, ViewCompat.LAYER_TYPE_NONE, null);
-                HSlidingPaneLayout.this.invalidateChildRegion(this.mChildView);
+                HSlidingPaneLayout2.this.invalidateChildRegion(this.mChildView);
             }
-            HSlidingPaneLayout.this.mPostedRunnables.remove(this);
+            HSlidingPaneLayout2.this.mPostedRunnables.remove(this);
         }
     }
 }

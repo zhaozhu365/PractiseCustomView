@@ -340,13 +340,13 @@ public class QQMessageGone3 extends View {
 
     }
 
-    private boolean canTouch = false;
+//    private boolean canTouch = false;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!canTouch && IS_ACTION_UP) {
-            return super.onTouchEvent(event);
-        }
+//        if (!canTouch && IS_ACTION_UP) {
+//            return super.onTouchEvent(event);
+//        }
 
         IS_ACTION_UP = false;
 
@@ -405,7 +405,7 @@ public class QQMessageGone3 extends View {
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                canTouch = false;
+//                canTouch = false;
                 //消失动画
                 if (mRedPointDismissListener != null) {
                     mRedPointDismissListener.onDismiss(A0, B0);
@@ -414,7 +414,7 @@ public class QQMessageGone3 extends View {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                canTouch = true;
+//                canTouch = true;
                 if (mRedPointDismissListener != null) {
                     mRedPointDismissListener.onFinishAnim(A0, B0);
                 }
