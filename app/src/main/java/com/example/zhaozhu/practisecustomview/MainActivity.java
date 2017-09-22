@@ -5,11 +5,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.example.zhaozhu.practisecustomview.customview02.PanelView;
 import com.example.zhaozhu.practisecustomview.customview02.SimpleLineChart;
 import com.example.zhaozhu.practisecustomview.customviewgroup.HSlidingPaneLayout2;
+import com.example.zhaozhu.practisecustomview.pathanimationdemo.FllowerAnimation;
 
 public class MainActivity extends Activity {
 
@@ -115,25 +118,25 @@ public class MainActivity extends Activity {
 //        });
 
         //TODO pathMeasure示例
-//        setContentView(R.layout.activity_main_pathmeasure);
-//        Button run;
-//        RelativeLayout rlt_animation_layout;
-//        run = (Button) findViewById(R.id.but_run);
-//        rlt_animation_layout = (RelativeLayout) findViewById(R.id.rlt_animation_layout);
-//        rlt_animation_layout.setVisibility(View.VISIBLE);
-//
-//        final FllowerAnimation fllowerAnimation;
-//        fllowerAnimation = new FllowerAnimation(this);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-//        fllowerAnimation.setLayoutParams(params);
-//        rlt_animation_layout.addView(fllowerAnimation);
-//
-//        run.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fllowerAnimation.startAnimation();
-//            }
-//        });
+        setContentView(R.layout.activity_main_pathmeasure);
+        Button run;
+        RelativeLayout rlt_animation_layout;
+        run = (Button) findViewById(R.id.but_run);
+        rlt_animation_layout = (RelativeLayout) findViewById(R.id.rlt_animation_layout);
+        rlt_animation_layout.setVisibility(View.VISIBLE);
+
+        final FllowerAnimation fllowerAnimation;
+        fllowerAnimation = new FllowerAnimation(this);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        fllowerAnimation.setLayoutParams(params);
+        rlt_animation_layout.addView(fllowerAnimation);
+
+        run.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fllowerAnimation.startAnimation();
+            }
+        });
 
         //TODO 公示计算获取路径
 //        setContentView(R.layout.activity_main3);
@@ -213,42 +216,42 @@ public class MainActivity extends Activity {
 //            }
 //        });
 
-        //TODO HSlidingPaneLayout2 mOverhangSize = 0px;
-        setContentView(R.layout.activity_main7);
-        final HSlidingPaneLayout2 slidingPaneLayout = (HSlidingPaneLayout2) findViewById(R.id.slide);
-        final View leftMenu = findViewById(R.id.left_menu);
-        final View content = findViewById(R.id.right_content);
-
-        slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
-        slidingPaneLayout.setPanelSlideListener(new HSlidingPaneLayout2.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-                Log.e("zz", "content " + (content == panel) + " leftMenu " + (leftMenu == panel) + " slideOffset = " + slideOffset);
-            }
-
-            @Override
-            public void onPanelOpened(View panel) {
-                Log.e("zz", "onPanelOpened");
-            }
-
-            @Override
-            public void onPanelClosed(View panel) {
-                Log.e("zz", "onPanelClosed");
-            }
-        });
-
-        content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingPaneLayout.openPane();
-            }
-        });
-        leftMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingPaneLayout.closePane();
-            }
-        });
+//        //TODO HSlidingPaneLayout2 mOverhangSize = 0px;
+//        setContentView(R.layout.activity_main7);
+//        final HSlidingPaneLayout2 slidingPaneLayout = (HSlidingPaneLayout2) findViewById(R.id.slide);
+//        final View leftMenu = findViewById(R.id.left_menu);
+//        final View content = findViewById(R.id.right_content);
+//
+//        slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
+//        slidingPaneLayout.setPanelSlideListener(new HSlidingPaneLayout2.PanelSlideListener() {
+//            @Override
+//            public void onPanelSlide(View panel, float slideOffset) {
+//                Log.e("zz", "content " + (content == panel) + " leftMenu " + (leftMenu == panel) + " slideOffset = " + slideOffset);
+//            }
+//
+//            @Override
+//            public void onPanelOpened(View panel) {
+//                Log.e("zz", "onPanelOpened");
+//            }
+//
+//            @Override
+//            public void onPanelClosed(View panel) {
+//                Log.e("zz", "onPanelClosed");
+//            }
+//        });
+//
+//        content.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                slidingPaneLayout.openPane();
+//            }
+//        });
+//        leftMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                slidingPaneLayout.closePane();
+//            }
+//        });
 
 
 
